@@ -61,10 +61,10 @@ class _HousesState extends State<Houses> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.add,
+                Icons.edit,
                 color: Colors.white,
               ),
-              label: 'Add',
+              label: 'Edit',
             ),
             BottomNavigationBarItem(
               icon: Icon(

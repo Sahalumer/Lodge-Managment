@@ -82,10 +82,20 @@ class _InsideRoomState extends State<InsideRoom> {
                                         'Assets/Image/users.png',
                                         height: 100,
                                       ),
-                                      Text(room.persons[index].name),
+                                      Text(
+                                        room.persons[index].name,
+                                        style: TextStyle(
+                                            color: room.persons[index].isPayed
+                                                ? Colors.black
+                                                : Colors.red),
+                                      ),
                                       Text(
                                         room.persons[index].phoneNumber
                                             .toString(),
+                                        style: TextStyle(
+                                            color: room.persons[index].isPayed
+                                                ? Colors.black
+                                                : Colors.red),
                                       )
                                     ],
                                   ),

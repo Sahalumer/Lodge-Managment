@@ -3,6 +3,7 @@ import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside_rooms/see_details.dart';
+import 'package:project/screens/inside_rooms/update_payment.dart';
 
 class PersonDetails extends StatefulWidget {
   final int houseKey;
@@ -134,7 +135,9 @@ class _PersonDetailsState extends State<PersonDetails> {
                           const SizedBox(height: 15),
                           ElevatedButton(
                             onPressed: () {
-                              updatePayment(context, person);
+                              updatePayment(context, person, widget.houseKey,
+                                  widget.roomName);
+                              print(person.revenue);
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -236,106 +239,6 @@ class _PersonDetailsState extends State<PersonDetails> {
         duration: Duration(seconds: 3),
         backgroundColor: Colors.grey,
       ),
-    );
-  }
-
-  updatePayment(BuildContext context, Person data) {
-    final formKey = GlobalKey<FormState>();
-    final amountController = TextEditingController();
-    final monthController = TextEditingController();
-    bool ispayed = true;
-    amountController.text = '0';
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: AppColor.primary.color,
-          content: Form(
-            key: formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5),
-                  Text(
-                    "Month",
-                    style: TextStyle(color: AppColor.white.color, fontSize: 18),
-                  ),
-                  const SizedBox(height: 2),
-                  TextFormField(
-                    controller: monthController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 217, 217, 217),
-                      hintText: "enter the Month",
-                      labelStyle: TextStyle(color: Colors.black),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please Enter the Month';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "Amount",
-                    style: TextStyle(color: AppColor.white.color, fontSize: 18),
-                  ),
-                  const SizedBox(height: 2),
-                  TextFormField(
-                    controller: amountController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 217, 217, 217),
-                      hintText: "Enter the Amount",
-                      labelStyle: TextStyle(color: Colors.black),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter the amount';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: [
-            CustomTextButton(
-              buttonText: 'Cancel',
-              onPressed: () => Navigator.pop(context),
-            ),
-            CustomTextButton(
-              buttonText: 'Update',
-              onPressed: () async {
-                if (formKey.currentState!.validate()) {
-                  if (amountController.text == "0") {
-                    ispayed = false;
-                  }
-                  final updatedPerson = Person(
-                      name: data.name,
-                      phoneNumber: data.phoneNumber,
-                      imagePath: data.imagePath,
-                      isPayed: ispayed,
-                      joinDate: data.joinDate,
-                      revenue: {
-                        monthController.text: int.parse(amountController.text)
-                      });
-                  await updatePersonInRoomAsync(
-                      widget.houseKey, widget.roomName, updatedPerson);
-                  Navigator.pop(context);
-                  setState(() {});
-                }
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

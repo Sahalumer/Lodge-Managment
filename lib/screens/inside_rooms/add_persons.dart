@@ -26,9 +26,24 @@ class _AddPersonState extends State<AddPerson> {
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
   final monthController = TextEditingController();
+  String? selectedMonth;
   bool isPayed = false;
   File? imagePath;
   String? selectedImage;
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
   late List<bool> isSelected;
 
@@ -183,14 +198,50 @@ class _AddPersonState extends State<AddPerson> {
                                   ),
                                 ),
                                 if (isPayed)
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10, bottom: 15),
-                                    child: CustomTextField(
-                                      labelText: 'Amount',
-                                      hintText: 'Enter the Amount',
-                                      controller: amountController,
-                                    ),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10, bottom: 15),
+                                        child: DropdownButtonFormField(
+                                          value: selectedMonth,
+                                          items: months.map((String month) {
+                                            return DropdownMenuItem<String>(
+                                              value: month,
+                                              child: Text(month),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? value) {
+                                            selectedMonth = value;
+                                          },
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            filled: true,
+                                            fillColor: Color.fromARGB(
+                                                255, 217, 217, 217),
+                                            hintText: "Select the Month",
+                                            labelStyle:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please select the Month';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10, bottom: 15),
+                                        child: CustomTextField(
+                                          labelText: 'Amount',
+                                          hintText: 'Enter the Amount',
+                                          controller: amountController,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                               ],
                             ),
@@ -250,13 +301,16 @@ class _AddPersonState extends State<AddPerson> {
 
   void onAddButton() async {
     if (formKey.currentState!.validate()) {
+      if (selectedImage == null) {
+        msg(context);
+      }
       final person = Person(
           name: nameController.text,
           phoneNumber: int.parse(phoneController.text),
           imagePath: selectedImage!,
           isPayed: isPayed,
           joinDate: monthController.text,
-          revenue: {monthController.text: int.parse(amountController.text)});
+          revenue: {selectedMonth!: int.parse(amountController.text)});
       await addPersonInRoomAsync(
         widget.houseKey,
         widget.roomName,
@@ -264,5 +318,20 @@ class _AddPersonState extends State<AddPerson> {
       );
       Navigator.pop(context);
     }
+  }
+
+  void msg(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Please add the Id Proof',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.red),
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.grey,
+      ),
+    );
   }
 }

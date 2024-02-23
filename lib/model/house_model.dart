@@ -82,29 +82,3 @@ class Person {
     );
   }
 }
-
-
-
-
-
-
-  //  class House extends HiveObject{
-  
-  //   String houseName;
-
-  //   @HiveField(1)
-  //   String floorCount;
-
-  //   @HiveField(2)
-  //   List<String> roomCount;
-
-  //   @HiveField(3)
-  //   String ownerName;
-
-  //   House({
-  //     required this.houseName,
-  //     required this.floorCount,
-  //     required this.roomCount,
-  //     required this.ownerName,
-  //   });
-  // }
