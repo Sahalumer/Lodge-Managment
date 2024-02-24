@@ -5,7 +5,6 @@ import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/screens/Authonications/login_page.dart';
 import 'package:project/screens/inside/Home.dart';
 import 'package:project/screens/inside/first_sign_in.dart';
-import 'package:project/screens/inside/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

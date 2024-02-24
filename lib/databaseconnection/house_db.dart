@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/model/house_model.dart';
@@ -22,6 +24,7 @@ addHouseAsync(House house) async {
     await getAllHousesByOwnerAsync(house.ownerName);
   } finally {
     closeHouseBox(houseBox);
+
     houseList.notifyListeners();
   }
 }
@@ -58,7 +61,7 @@ updateHouseAsync(int id, House updated) async {
     await houseBox.put(id, updated);
     await getAllHousesByOwnerAsync(updated.ownerName);
   } finally {
-    if (houseBox != null && houseBox.isOpen) {
+    if (houseBox.isOpen) {
       await houseBox.close();
     }
   }

@@ -151,7 +151,7 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
     for (var floor in house.roomCount) {
       for (var room in floor) {
         for (var person in room.persons) {
-          total += person.countMonth(selectedMonth!);
+          total += person.countMonth(selectedMonth);
         }
       }
     }

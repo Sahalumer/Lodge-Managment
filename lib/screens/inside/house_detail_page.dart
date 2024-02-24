@@ -72,7 +72,7 @@ class HouseDetailsPage extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   List<Room> room = house.roomCount[index];
-                                  print(room[gridIndex].roomName);
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -107,7 +107,9 @@ class HouseDetailsPage extends StatelessWidget {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text('Tap To View'),
+                                      Text(
+                                        'Tap To View',
+                                      ),
                                     ],
                                   ),
                                 ),
