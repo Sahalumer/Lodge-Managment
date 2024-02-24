@@ -111,7 +111,7 @@ class _AllHouseRevenueState extends State<AllHouseRevenue> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          'Total Revenue of $selectedMonth : $totalMonthRevenue',
+                          'Total Revenue in $selectedMonth : $totalMonthRevenue',
                           style: TextStyle(
                             color: AppColor.white.color,
                             fontSize: 20,
