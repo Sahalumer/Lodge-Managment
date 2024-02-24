@@ -81,4 +81,22 @@ class Person {
       revenue: data['revenue'],
     );
   }
+
+  int countTotal() {
+    int total = 0;
+    revenue.forEach((key, value) {
+      total += value;
+    });
+    return total;
+  }
+
+  int countMonth(String key) {
+    int total = 0;
+    revenue.forEach((revenueKey, value) {
+      if (revenueKey == key) {
+        total += value;
+      }
+    });
+    return total;
+  }
 }

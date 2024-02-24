@@ -44,7 +44,8 @@ class _HousesState extends State<Houses> {
     final List<Widget> pages = [
       HouseDetailsPage(house: widget.housee),
       Container(),
-      const SingleHouseRevenue(),
+      SingleHouseRevenue(
+          houseKey: widget.housee.key, houseName: widget.housee.houseName),
     ];
     return SafeArea(
       child: Scaffold(

@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
           final List<Widget> pages = [
             HomePage(ownerName: widget.name, house: house),
             const SearchPage(),
-            const AllHouseRevenue(),
+            AllHouseRevenue(houses: house, name: widget.name),
           ];
           return SafeArea(
             child: Scaffold(
