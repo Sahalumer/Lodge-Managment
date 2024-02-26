@@ -25,12 +25,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = ThemeData(
+      primarySwatch: Colors.blue,
+    );
     return MaterialApp(
       title: 'Control Your Home',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // Customize your theme further if needed
-      ),
+      theme: themeData,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
     );
