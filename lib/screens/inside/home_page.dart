@@ -6,7 +6,7 @@ import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/Authonications/login_page.dart';
 import 'package:project/screens/inside/create_house.dart';
-import 'package:project/screens/inside/houses.dart';
+import 'package:project/screens/inside_house/inside_house.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
@@ -52,13 +52,13 @@ class HomePage extends StatelessWidget {
                   elevation: 5,
                   child: InkWell(
                     onTap: () async {
-                      final house = await getHouseByKeyAsync(data.key);
-
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (ctx) => Houses(
-                                    housee: house,
+                              builder: (ctx) => HouseHomePage(
+                                    houseKey: data.key,
+                                    houseName: data.houseName,
+                                    ownerName: data.ownerName,
                                   )));
                     },
                     child: Column(

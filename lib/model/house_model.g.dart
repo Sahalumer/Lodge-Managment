@@ -18,7 +18,7 @@ class HouseAdapter extends TypeAdapter<House> {
     };
     return House(
       houseName: fields[0] as String,
-      floorCount: fields[1] as String,
+      floorCount: fields[1] as int,
       roomCount: (fields[2] as List)
           .map((dynamic e) => (e as List).cast<Room>())
           .toList(),

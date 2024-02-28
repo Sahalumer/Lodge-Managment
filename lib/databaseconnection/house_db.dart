@@ -29,17 +29,6 @@ addHouseAsync(House house) async {
   }
 }
 
-void getAllHouseAsync() async {
-  final houseBox = await openHouseBox();
-  try {
-    houseList.value.clear();
-    houseList.value.addAll(houseBox.values);
-  } finally {
-    closeHouseBox(houseBox);
-    houseList.notifyListeners();
-  }
-}
-
 Future<List<House>> getAllHousesByOwnerAsync(String ownerName) async {
   final houseBox = await openHouseBox();
   try {
@@ -64,34 +53,6 @@ updateHouseAsync(int id, House updated) async {
     if (houseBox.isOpen) {
       await houseBox.close();
     }
-  }
-}
-
-Future<House?> getHouseByNameAsync(String name) async {
-  Box<House>? houseBox;
-
-  try {
-    houseBox = await openHouseBox();
-    if (!houseBox.isOpen) {
-      throw Exception('House box is not open');
-    }
-
-    final housename = houseBox.values.firstWhere(
-      (entry) => entry.houseName == name,
-      orElse: () => House(
-        houseName: '',
-        floorCount: '',
-        roomCount: [],
-        ownerName: '',
-      ),
-    );
-
-    return housename.houseName.isNotEmpty ? housename : null;
-  } catch (e) {
-    print('Error in getHouseByNameAsync: $e');
-    return null;
-  } finally {
-    closeHouseBox(houseBox);
   }
 }
 

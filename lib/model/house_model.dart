@@ -8,7 +8,7 @@ class House extends HiveObject {
   @HiveField(0)
   String houseName;
   @HiveField(1)
-  String floorCount;
+  int floorCount;
   @HiveField(2)
   List<List<Room>> roomCount;
   @HiveField(3)

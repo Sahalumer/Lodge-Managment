@@ -68,7 +68,7 @@ class _CreateHouseState extends State<CreateHouse> {
                 key: formKey,
                 child: SingleChildScrollView(
                   child: Container(
-                    height: 509,
+                    height: MediaQuery.of(context).size.height * .667,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -186,7 +186,7 @@ class _CreateHouseState extends State<CreateHouse> {
   onCreateButton(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       final houseName = houseNameController.text.trim();
-      final floorCount = floorCountController.text.trim();
+      final floorCount = int.parse(floorCountController.text.trim());
       final roomCount = roomCountControllers
           .map((controller) => controller.text.trim())
           .toList();

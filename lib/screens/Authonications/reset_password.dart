@@ -6,7 +6,7 @@ import 'package:project/screens/Authonications/login_page.dart';
 class ResetPassWord extends StatelessWidget {
   final String name;
 
-  ResetPassWord({Key? key, required this.name}) : super(key: key);
+  ResetPassWord({super.key, required this.name});
 
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
