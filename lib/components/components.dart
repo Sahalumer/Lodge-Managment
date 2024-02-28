@@ -47,8 +47,10 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           fillColor: const Color.fromARGB(255, 217, 217, 217),
           hintText: hintText,
-          labelText: labelText,
-          labelStyle: const TextStyle(color: Colors.black)),
+          labelText: null,
+          labelStyle: const TextStyle(
+            color: Colors.black,
+          )),
       keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {

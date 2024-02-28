@@ -99,10 +99,21 @@ class _CreateHouseState extends State<CreateHouse> {
                                 Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10),
-                                    child: CustomTextField(
-                                      labelText: "House Name",
-                                      hintText: "Enter The House Name",
-                                      controller: houseNameController,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'House Name',
+                                          style: TextStyle(
+                                              color: AppColor.white.color),
+                                        ),
+                                        CustomTextField(
+                                          labelText: "House Name",
+                                          hintText: "Enter The House Name",
+                                          controller: houseNameController,
+                                        ),
+                                      ],
                                     )),
                                 const SizedBox(
                                   height: 15,
@@ -110,10 +121,21 @@ class _CreateHouseState extends State<CreateHouse> {
                                 Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10),
-                                    child: CustomTextField(
-                                      labelText: "Floor Count",
-                                      hintText: "Enter The Floor Count",
-                                      controller: floorCountController,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Floor Count',
+                                          style: TextStyle(
+                                              color: AppColor.white.color),
+                                        ),
+                                        CustomTextField(
+                                          labelText: "Floor Count",
+                                          hintText: "Enter The Floor Count",
+                                          controller: floorCountController,
+                                        ),
+                                      ],
                                     )),
                                 const SizedBox(
                                   height: 15,
@@ -124,11 +146,23 @@ class _CreateHouseState extends State<CreateHouse> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10, bottom: 15),
-                                    child: CustomTextField(
-                                        labelText: "Room Count ${i + 1}",
-                                        hintText:
-                                            'Rooms Count In Floor ${i + 1}',
-                                        controller: roomCountControllers[i]),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Room Count ${i + 1}',
+                                          style: TextStyle(
+                                              color: AppColor.white.color),
+                                        ),
+                                        CustomTextField(
+                                            labelText: "Room Count ${i + 1}",
+                                            hintText:
+                                                'Rooms Count In Floor ${i + 1}',
+                                            controller:
+                                                roomCountControllers[i]),
+                                      ],
+                                    ),
                                   ),
                               ],
                             ),
