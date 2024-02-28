@@ -1,9 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside/home.dart';
 import 'package:project/screens/inside_house/inside_floor.dart';
+import 'package:project/screens/inside_house/payment_dues.dart';
 import 'package:project/screens/inside_house/revenue.dart';
 
 class HouseHomePage extends StatefulWidget {
@@ -62,17 +65,17 @@ class _HouseHomePageState extends State<HouseHomePage> {
                 child: Image.asset('Assets/Image/LogoImage.png'),
               ),
               ListTile(
-                title: Text('Peynment Dues'),
+                title: const Text('Peynment Dues'),
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => AboutPage(),
-                  //     ));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Payment_dues(),
+                      ));
                 },
               ),
               ListTile(
-                title: Text('Revenue'),
+                title: const Text('Revenue'),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -125,6 +128,12 @@ class _HouseHomePageState extends State<HouseHomePage> {
                                 fontSize: 18,
                               ),
                             ),
+                            trailing: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: AppColor.white.color,
+                                )),
                             onTap: () {
                               Navigator.push(
                                   context,

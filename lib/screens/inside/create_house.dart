@@ -68,7 +68,7 @@ class _CreateHouseState extends State<CreateHouse> {
                 key: formKey,
                 child: SingleChildScrollView(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * .667,
+                    height: MediaQuery.of(context).size.height * .635,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
