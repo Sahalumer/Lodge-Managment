@@ -90,7 +90,8 @@ Future<Person?> getPersonByName(
                     imagePath: '',
                     isPayed: false,
                     joinDate: '',
-                    revenue: {}));
+                    revenue: {},
+                    roomName: ''));
           }
         }
       }
@@ -127,4 +128,22 @@ Future<void> deletePersonAsync(
     closeHouseBox(houseBox);
     print('deleted person succesfully');
   }
+}
+
+Future<List<Person>> getPersonsByRoomName(int houseKey, String roomName) async {
+  final houseBox = await openHouseBox();
+  try {
+    House? house = houseBox.get(houseKey);
+
+    if (house != null) {
+      for (var floor in house.roomCount) {
+        for (var room in floor) {
+          if (room.roomName == roomName) {
+            return room.persons;
+          }
+        }
+      }
+    }
+    return [];
+  } finally {}
 }

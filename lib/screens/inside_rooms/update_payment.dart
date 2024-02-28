@@ -111,6 +111,7 @@ updatePayment(
                   phoneNumber: data.phoneNumber,
                   imagePath: data.imagePath,
                   isPayed: ispayed,
+                  roomName: data.roomName,
                   joinDate: data.joinDate,
                   revenue: {
                     ...data.revenue,

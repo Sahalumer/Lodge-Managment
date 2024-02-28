@@ -1,10 +1,9 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
+import 'package:project/functions/delete_functions.dart';
 import 'package:project/model/house_model.dart';
-import 'package:project/screens/inside/home.dart';
+import 'package:project/screens/inside_house/edit_floors_rooms.dart';
 import 'package:project/screens/inside_house/inside_floor.dart';
 import 'package:project/screens/inside_house/payment_dues.dart';
 import 'package:project/screens/inside_house/revenue.dart';
@@ -24,11 +23,8 @@ class HouseHomePage extends StatefulWidget {
 }
 
 class _HouseHomePageState extends State<HouseHomePage> {
-  final roomCountCountroller = TextEditingController();
-  final formKey = GlobalKey<FormState>();
   late Future<House> _houseFuture;
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +44,7 @@ class _HouseHomePageState extends State<HouseHomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                delete(context);
+                delete(context, widget.houseKey, widget.ownerName);
               },
               icon: const Icon(Icons.delete),
             )
@@ -65,17 +61,17 @@ class _HouseHomePageState extends State<HouseHomePage> {
                 child: Image.asset('Assets/Image/LogoImage.png'),
               ),
               ListTile(
-                title: const Text('Peynment Dues'),
+                title: Text('Peynment Dues'),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Payment_dues(),
+                        builder: (context) => Payment_dues(),
                       ));
                 },
               ),
               ListTile(
-                title: const Text('Revenue'),
+                title: Text('Revenue'),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -89,208 +85,80 @@ class _HouseHomePageState extends State<HouseHomePage> {
             ],
           ),
         ),
-        body: RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: () async {
-            setState(() {
-              _houseFuture = getHouseByKeyAsync(widget.houseKey);
-            });
-          },
-          child: FutureBuilder<House>(
-            future: _houseFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                int itemcount = snapshot.data!.floorCount;
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: itemcount + 1,
-                    itemBuilder: (context, index) {
-                      int floorName = index + 1;
-                      final List<int> roomCount = [];
-                      for (int i = 0; i < itemcount; i++) {
-                        roomCount.add(snapshot.data!.roomCount[i].length);
-                      }
+        body: FutureBuilder<House>(
+          future: _houseFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              int itemcount = snapshot.data!.floorCount;
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  itemCount: itemcount + 1,
+                  itemBuilder: (context, index) {
+                    int floorName = index + 1;
+                    final List<int> roomCount = [];
+                    for (int i = 0; i < itemcount; i++) {
+                      roomCount.add(snapshot.data!.roomCount[i].length);
+                    }
 
-                      if (index != itemcount) {
-                        return Card(
-                          color: AppColor.primary.color,
-                          elevation: 5,
-                          child: ListTile(
-                            title: Text(
-                              'Floor No: $floorName',
-                              style: TextStyle(
-                                color: AppColor.white.color,
-                                fontSize: 18,
-                              ),
+                    if (index != itemcount) {
+                      return Card(
+                        color: AppColor.primary.color,
+                        elevation: 5,
+                        child: ListTile(
+                          title: Text(
+                            'Floor No: $floorName',
+                            style: TextStyle(
+                              color: AppColor.white.color,
+                              fontSize: 18,
                             ),
-                            trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: AppColor.white.color,
-                                )),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => InsideFloor(
-                                            floorName: 'Floor No: $floorName',
-                                            roomCount: roomCount[index],
-                                            house: snapshot.data!,
-                                            index: index,
-                                          )));
-                            },
                           ),
-                        );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomElevatedButton(
-                            buttonText: "Add Floor",
-                            onPressed: () {
-                              addFloor(snapshot.data!);
-                            },
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                );
-              }
-            },
-          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => InsideFloor(
+                                          floorName: 'Floor No: $floorName',
+                                          roomCount: roomCount[index],
+                                          house: snapshot.data!,
+                                          index: index,
+                                        )));
+                          },
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomElevatedButton(
+                          buttonText: "Edit The Floors And Rooms",
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => EditFloorsAndRooms(
+                                        house: snapshot.data!))).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  _houseFuture =
+                                      getHouseByKeyAsync(widget.houseKey);
+                                });
+                              }
+                            });
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
+              );
+            }
+          },
         ),
       ),
     );
-  }
-
-  delete(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text(
-            'Are You Confirm To Delete?',
-            textAlign: TextAlign.center,
-          ),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel')),
-            TextButton(
-              onPressed: () async {
-                await deleteHouseAsync(widget.houseKey);
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => Home(name: widget.ownerName)),
-                    (route) => false);
-                msg(context);
-              },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void msg(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: Text(
-          "Deletd Your  House",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
-        ),
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.grey,
-      ),
-    );
-  }
-
-  addFloor(House house) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Form(
-          key: formKey,
-          child: AlertDialog(
-            backgroundColor: AppColor.primary.color,
-            title: Text(
-              "How Many Rooms Are There? ",
-              style: TextStyle(color: AppColor.white.color),
-            ),
-            content: SizedBox(
-              height: 65,
-              child: Column(
-                children: [
-                  CustomTextField(
-                      labelText: 'How many Rooms',
-                      hintText: 'Room Count',
-                      controller: roomCountCountroller)
-                ],
-              ),
-            ),
-            actions: [
-              CustomTextButton(
-                buttonText: 'Cancel',
-                onPressed: () => Navigator.pop(context),
-              ),
-              CustomTextButton(
-                buttonText: 'Update',
-                onPressed: () {
-                  inUpdateButton(house);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  inUpdateButton(House house) async {
-    if (formKey.currentState!.validate()) {
-      final houseName = house.houseName;
-      final ownerName = house.ownerName;
-
-      final floorCount = house.floorCount + 1;
-
-      final count = int.parse(roomCountCountroller.text);
-      final List<Room> rooms = [];
-      for (int j = 0; j < count; j++) {
-        Room temp = Room(
-            roomName: '${house.floorCount + 1}+$j+$houseName',
-            persons: [],
-            bedSpaceCount: 1);
-        rooms.add(temp);
-      }
-      final List<List<Room>> updatedRoomCount = List.from(house.roomCount);
-      updatedRoomCount.add(rooms);
-      final updatedHouse = House(
-        houseName: houseName,
-        floorCount: floorCount,
-        roomCount: updatedRoomCount,
-        ownerName: ownerName,
-      );
-      await updateHouseAsync(widget.houseKey, updatedHouse);
-      setState(() {
-        _houseFuture = getHouseByKeyAsync(widget.houseKey);
-      });
-      Navigator.pop(context);
-      _refreshIndicatorKey.currentState?.show();
-    }
   }
 }

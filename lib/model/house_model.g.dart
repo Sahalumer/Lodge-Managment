@@ -107,14 +107,15 @@ class PersonAdapter extends TypeAdapter<Person> {
       imagePath: fields[3] as String,
       isPayed: fields[2] as bool,
       joinDate: fields[4] as String,
-      revenue: (fields[5] as Map).cast<String, int>(),
+      revenue: (fields[6] as Map).cast<String, int>(),
+      roomName: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Person obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -126,6 +127,8 @@ class PersonAdapter extends TypeAdapter<Person> {
       ..writeByte(4)
       ..write(obj.joinDate)
       ..writeByte(5)
+      ..write(obj.roomName)
+      ..writeByte(6)
       ..write(obj.revenue);
   }
 

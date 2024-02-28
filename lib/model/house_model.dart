@@ -60,6 +60,8 @@ class Person {
   @HiveField(4)
   String joinDate;
   @HiveField(5)
+  String roomName;
+  @HiveField(6)
   Map<String, int> revenue;
 
   Person({
@@ -69,17 +71,18 @@ class Person {
     required this.isPayed,
     required this.joinDate,
     required this.revenue,
+    required this.roomName,
   });
 
   factory Person.fromMap(Map<String, dynamic> data) {
     return Person(
-      name: data['name'],
-      phoneNumber: data['phoneNumber'],
-      imagePath: data['imagePath'],
-      isPayed: data['isPayed'],
-      joinDate: data['joinDate'],
-      revenue: data['revenue'],
-    );
+        name: data['name'],
+        phoneNumber: data['phoneNumber'],
+        imagePath: data['imagePath'],
+        isPayed: data['isPayed'],
+        joinDate: data['joinDate'],
+        revenue: data['revenue'],
+        roomName: data['roomName']);
   }
 
   int countTotal() {

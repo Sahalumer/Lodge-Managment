@@ -309,8 +309,11 @@ class _AddPersonState extends State<AddPerson> {
           phoneNumber: int.parse(phoneController.text),
           imagePath: selectedImage!,
           isPayed: isPayed,
+          roomName: widget.roomName,
           joinDate: monthController.text,
-          revenue: {selectedMonth!: int.parse(amountController.text)});
+          revenue: {
+            selectedMonth!: int.parse(amountController.text),
+          });
       await addPersonInRoomAsync(
         widget.houseKey,
         widget.roomName,
