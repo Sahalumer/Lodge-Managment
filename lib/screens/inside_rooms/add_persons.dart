@@ -108,10 +108,18 @@ class _AddPersonState extends State<AddPerson> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
-                                child: CustomTextField(
-                                  labelText: "Name",
-                                  hintText: "Enter The Name",
-                                  controller: nameController,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Name',
+                                    ),
+                                    CustomTextField(
+                                      labelText: "Name",
+                                      hintText: "Enter The Name",
+                                      controller: nameController,
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(
@@ -120,10 +128,18 @@ class _AddPersonState extends State<AddPerson> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
-                                child: CustomTextField(
-                                  labelText: "Phone Number",
-                                  hintText: "Enter The Phone Number",
-                                  controller: phoneController,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Phone Number',
+                                    ),
+                                    CustomTextField(
+                                      labelText: "Phone Number",
+                                      hintText: "Enter The Phone Number",
+                                      controller: phoneController,
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(
@@ -132,10 +148,16 @@ class _AddPersonState extends State<AddPerson> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
-                                child: CustomTextField(
-                                  labelText: "Join Month",
-                                  hintText: "dd/mm/year",
-                                  controller: monthController,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Join Date'),
+                                    CustomTextField(
+                                      labelText: "Join Month",
+                                      hintText: "dd/mm/year",
+                                      controller: monthController,
+                                    ),
+                                  ],
                                 ),
                               ),
                               const SizedBox(
@@ -203,41 +225,60 @@ class _AddPersonState extends State<AddPerson> {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 10, right: 10, bottom: 15),
-                                      child: DropdownButtonFormField(
-                                        value: selectedMonth,
-                                        items: months.map((String month) {
-                                          return DropdownMenuItem<String>(
-                                            value: month,
-                                            child: Text(month),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String? value) {
-                                          selectedMonth = value;
-                                        },
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          filled: true,
-                                          fillColor: Color.fromARGB(
-                                              255, 217, 217, 217),
-                                          hintText: "Select the Month",
-                                          labelStyle:
-                                              TextStyle(color: Colors.black),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please select the Month';
-                                          }
-                                          return null;
-                                        },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Month',
+                                          ),
+                                          DropdownButtonFormField(
+                                            value: selectedMonth,
+                                            items: months.map((String month) {
+                                              return DropdownMenuItem<String>(
+                                                value: month,
+                                                child: Text(month),
+                                              );
+                                            }).toList(),
+                                            onChanged: (String? value) {
+                                              selectedMonth = value;
+                                            },
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              filled: true,
+                                              fillColor: Color.fromARGB(
+                                                  255, 217, 217, 217),
+                                              hintText: "Select the Month",
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please select the Month';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 10, right: 10, bottom: 15),
-                                      child: CustomTextField(
-                                        labelText: 'Amount',
-                                        hintText: 'Enter the Amount',
-                                        controller: amountController,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Amount',
+                                          ),
+                                          CustomTextField(
+                                            labelText: 'Amount',
+                                            hintText: 'Enter the Amount',
+                                            controller: amountController,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
