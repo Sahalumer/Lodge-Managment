@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/functions/delete_functions.dart';
+import 'package:project/functions/show_errors.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside_house/edit_floors_rooms.dart';
 import 'package:project/screens/inside_house/inside_floor.dart';
@@ -106,6 +107,8 @@ class _HouseHomePageState extends State<HouseHomePage> {
                     }
 
                     if (index != itemcount) {
+                      final bedSpace =
+                          findBedSpaceAvailableByFloor(snapshot.data!);
                       return Card(
                         color: AppColor.primary.color,
                         elevation: 5,
@@ -117,6 +120,13 @@ class _HouseHomePageState extends State<HouseHomePage> {
                               fontSize: 18,
                             ),
                           ),
+                          subtitle: Text(
+                            '${bedSpace[index]} Bed Space Available ',
+                            style: TextStyle(
+                              color: AppColor.red.color,
+                              fontSize: 14,
+                            ),
+                          ),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -126,7 +136,19 @@ class _HouseHomePageState extends State<HouseHomePage> {
                                           roomCount: roomCount[index],
                                           house: snapshot.data!,
                                           index: index,
-                                        )));
+                                        ))).then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  _houseFuture =
+                                      getHouseByKeyAsync(snapshot.data!.key);
+                                });
+                              } else {
+                                setState(() {
+                                  _houseFuture =
+                                      getHouseByKeyAsync(snapshot.data!.key);
+                                });
+                              }
+                            });
                           },
                         ),
                       );

@@ -7,6 +7,7 @@ enum AppColor {
   primary,
   secondary,
   white,
+  red,
 }
 
 extension AppColorExtension on AppColor {
@@ -19,6 +20,8 @@ extension AppColorExtension on AppColor {
         return const Color.fromARGB(255, 255, 255, 255);
       case AppColor.secondary:
         return const Color.fromARGB(255, 209, 206, 191);
+      case AppColor.red:
+        return Colors.red;
     }
   }
 }

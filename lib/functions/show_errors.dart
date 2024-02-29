@@ -1,13 +1,19 @@
-import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
 
-Future<List<int>> findBedSpaceAvailableByFloor(int houseKey) async {
-  List<int> count = [];
-  House house = await getHouseByKeyAsync(houseKey);
-  for (var rooms in house.roomCount) {
+List<int> findBedSpaceAvailableByFloor(House house) {
+  return house.roomCount.map((rooms) {
     int temp = rooms.fold(0, (sum, e) => sum + e.bedSpaceCount);
     int personCount = rooms.fold(0, (sum, e) => sum + e.persons.length);
-    count.add(temp - personCount);
+    return temp - personCount;
+  }).toList();
+}
+
+List<int> findBedSpaceAvailablebyRooms(House house, int index) {
+  List<int> counts = [];
+  for (var rooms in house.roomCount) {
+    for (var room in rooms) {
+      counts.add(room.bedSpaceCount - room.persons.length);
+    }
   }
-  return count;
+  return counts;
 }

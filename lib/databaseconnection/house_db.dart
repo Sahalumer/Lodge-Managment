@@ -123,3 +123,22 @@ Future<Room?> getRoomByNameInHouseAsync(int houseKey, String roomName) async {
     closeHouseBox(houseBox);
   }
 }
+
+// Future<List<int>> findBedSpaceAvailableByFloor(int houseKey) async {
+//   List<int> count = [];
+//   try {
+//     House house = await getHouseByKeyAsync(houseKey);
+//     for (var rooms in house.roomCount) {
+//       int temp = 0;
+//       int personCount = 0;
+//       rooms.map((e) => temp + e.bedSpaceCount);
+//       rooms.map((e) => personCount = e.persons.length);
+//       count.add(temp - personCount);
+//     }
+
+//     return count;
+//   } catch (e) {
+//     print("hrererdghhjhvbje");
+//     return [3, 3];
+//   }
+// }

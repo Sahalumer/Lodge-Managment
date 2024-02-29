@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
+import 'package:project/functions/show_errors.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside_rooms/inside_room.dart';
 
@@ -20,6 +21,14 @@ class InsideFloor extends StatefulWidget {
 }
 
 class _InsideFloorState extends State<InsideFloor> {
+  late List<int> bedSpace;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bedSpace = findBedSpaceAvailablebyRooms(widget.house, widget.index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,7 +64,12 @@ class _InsideFloorState extends State<InsideFloor> {
                       builder: (ctx) => InsideRoom(
                             roomName: room[gridIndex].roomName,
                             house: widget.house,
-                          )));
+                          ))).then((_) {
+                setState(() {
+                  bedSpace =
+                      findBedSpaceAvailablebyRooms(widget.house, widget.index);
+                });
+              });
             },
             child: Container(
               decoration: BoxDecoration(
@@ -70,21 +84,31 @@ class _InsideFloorState extends State<InsideFloor> {
                   ),
                 ],
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 17,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.touch_app,
                     size: 90,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'Tap To View',
                   ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Visibility(
+                    visible: bedSpace[gridIndex] != 0,
+                    child: Text(
+                      '${bedSpace[gridIndex]} bedSpace Available',
+                      style: TextStyle(color: AppColor.red.color),
+                    ),
+                  )
                 ],
               ),
             ),

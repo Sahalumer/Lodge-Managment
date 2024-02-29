@@ -80,172 +80,170 @@ class _AddPersonState extends State<AddPerson> {
                       children: [
                         Expanded(
                           child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          .32,
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .32,
+                                  ),
+                                  const Text(
+                                    'Add Client',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    const Text(
-                                      'Add Client',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: CustomTextField(
+                                  labelText: "Name",
+                                  hintText: "Enter The Name",
+                                  controller: nameController,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: CustomTextField(
+                                  labelText: "Phone Number",
+                                  hintText: "Enter The Phone Number",
+                                  controller: phoneController,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: CustomTextField(
+                                  labelText: "Join Month",
+                                  hintText: "dd/mm/year",
+                                  controller: monthController,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                child: Text('Add ID Proof'),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    pickImageFromGallery();
+                                  },
+                                  icon: const Icon(Icons.image),
+                                  label: const Text('Add Image'),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .03,
+                                  ),
+                                  const Text(
+                                    'Is Payment Completed',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 12.0, bottom: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    ToggleButtons(
+                                      isSelected: isSelected,
+                                      onPressed: (int index) {
+                                        setState(() {
+                                          isPayed = index == 0;
+                                          for (int buttonIndex = 0;
+                                              buttonIndex < isSelected.length;
+                                              buttonIndex++) {
+                                            isSelected[buttonIndex] =
+                                                buttonIndex == index;
+                                          }
+                                        });
+                                      },
+                                      children: const [
+                                        Text('Yes'),
+                                        Text('No'),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: CustomTextField(
-                                    labelText: "Name",
-                                    hintText: "Enter The Name",
-                                    controller: nameController,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: CustomTextField(
-                                    labelText: "Phone Number",
-                                    hintText: "Enter The Phone Number",
-                                    controller: phoneController,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: CustomTextField(
-                                    labelText: "Join Month",
-                                    hintText: "dd/mm/year",
-                                    controller: monthController,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: Text('Add ID Proof'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: ElevatedButton.icon(
-                                    onPressed: () {
-                                      pickImageFromGallery();
-                                    },
-                                    icon: const Icon(Icons.image),
-                                    label: const Text('Add Image'),
-                                  ),
-                                ),
-                                Row(
+                              ),
+                              if (isPayed)
+                                Column(
                                   children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          .03,
-                                    ),
-                                    const Text(
-                                      'Is Payment Completed',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12.0, bottom: 15),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      ToggleButtons(
-                                        isSelected: isSelected,
-                                        onPressed: (int index) {
-                                          setState(() {
-                                            isPayed = index == 0;
-                                            for (int buttonIndex = 0;
-                                                buttonIndex < isSelected.length;
-                                                buttonIndex++) {
-                                              isSelected[buttonIndex] =
-                                                  buttonIndex == index;
-                                            }
-                                          });
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10, bottom: 15),
+                                      child: DropdownButtonFormField(
+                                        value: selectedMonth,
+                                        items: months.map((String month) {
+                                          return DropdownMenuItem<String>(
+                                            value: month,
+                                            child: Text(month),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? value) {
+                                          selectedMonth = value;
                                         },
-                                        children: const [
-                                          Text('Yes'),
-                                          Text('No'),
-                                        ],
+                                        decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Color.fromARGB(
+                                              255, 217, 217, 217),
+                                          hintText: "Select the Month",
+                                          labelStyle:
+                                              TextStyle(color: Colors.black),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select the Month';
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10, bottom: 15),
+                                      child: CustomTextField(
+                                        labelText: 'Amount',
+                                        hintText: 'Enter the Amount',
+                                        controller: amountController,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                if (isPayed)
-                                  Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10, bottom: 15),
-                                        child: DropdownButtonFormField(
-                                          value: selectedMonth,
-                                          items: months.map((String month) {
-                                            return DropdownMenuItem<String>(
-                                              value: month,
-                                              child: Text(month),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? value) {
-                                            selectedMonth = value;
-                                          },
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Color.fromARGB(
-                                                255, 217, 217, 217),
-                                            hintText: "Select the Month",
-                                            labelStyle:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please select the Month';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10, bottom: 15),
-                                        child: CustomTextField(
-                                          labelText: 'Amount',
-                                          hintText: 'Enter the Amount',
-                                          controller: amountController,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                              ],
-                            ),
-                          ),
+                            ],
+                          )),
                         ),
                         Column(
                           children: [
@@ -304,6 +302,7 @@ class _AddPersonState extends State<AddPerson> {
       if (selectedImage == null) {
         msg(context);
       }
+
       final person = Person(
           name: nameController.text,
           phoneNumber: int.parse(phoneController.text),
@@ -312,7 +311,7 @@ class _AddPersonState extends State<AddPerson> {
           roomName: widget.roomName,
           joinDate: monthController.text,
           revenue: {
-            selectedMonth!: int.parse(amountController.text),
+            isPayed ? selectedMonth! : '': int.parse(amountController.text),
           });
       await addPersonInRoomAsync(
         widget.houseKey,

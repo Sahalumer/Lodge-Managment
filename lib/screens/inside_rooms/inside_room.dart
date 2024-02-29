@@ -174,7 +174,9 @@ class _InsideRoomState extends State<InsideRoom> {
                       width: 180,
                       child: CustomElevatedButton(
                         buttonText: 'DONE',
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => Navigator.pop(
+                          context,
+                        ),
                       ),
                     ),
                   ],
