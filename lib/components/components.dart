@@ -18,7 +18,7 @@ extension AppColorExtension on AppColor {
       case AppColor.white:
         return const Color.fromARGB(255, 255, 255, 255);
       case AppColor.secondary:
-        return Color.fromARGB(255, 209, 206, 191);
+        return const Color.fromARGB(255, 209, 206, 191);
     }
   }
 }
