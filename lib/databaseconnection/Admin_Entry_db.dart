@@ -9,8 +9,8 @@ const String adminBoxName = "adminDb";
 
 void addAdmin(AdminEntry admin) async {
   final adminbox = await Hive.openBox<AdminEntry>(adminBoxName);
-  final _id = await adminbox.add(admin);
-  admin.id = _id;
+  await adminbox.add(admin);
+
   adminList.value.add(admin);
   adminList.notifyListeners();
 }
@@ -55,6 +55,28 @@ Future<AdminEntry?> getAdminByName(String name) async {
       if (entry.name == name) {
         return true;
       } else {
+        return false;
+      }
+    },
+    orElse: () => AdminEntry(name: '', email: '', password: ''),
+  );
+
+  return adminEntry;
+  // }
+
+  // return null;
+}
+
+Future<AdminEntry?> getAdminByEmail(String email) async {
+  final adminBox = await Hive.openBox<AdminEntry>(adminBoxName);
+
+  final adminEntry = adminBox.values.firstWhere(
+    (entry) {
+      if (entry.email == email) {
+        print('Found admin by email');
+        return true;
+      } else {
+        print('not found');
         return false;
       }
     },

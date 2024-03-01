@@ -148,9 +148,7 @@ class LoginPage extends StatelessWidget {
   forgotPassword(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ForgotPassord(
-          name: nameController.text,
-        ),
+        builder: (context) => ForgotPassord(),
       ),
     );
   }

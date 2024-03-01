@@ -126,13 +126,13 @@ class ResetPassWord extends StatelessWidget {
       final newPassword = passwordController.text;
       final foundAdmin = await getAdminByName(name);
 
-      if (foundAdmin != null && foundAdmin.id != null) {
+      if (foundAdmin != null) {
         final updatedAdmin = AdminEntry(
             name: foundAdmin.name,
             email: foundAdmin.email,
             password: newPassword);
 
-        updateAdmin(foundAdmin.id!, updatedAdmin);
+        updateAdmin(foundAdmin.key, updatedAdmin);
 
         Navigator.pushAndRemoveUntil(
           context,

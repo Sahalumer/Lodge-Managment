@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/Admin_Entry_db.dart';
@@ -6,8 +6,9 @@ import 'package:project/model/admin_model.dart';
 import 'package:project/screens/Authonications/reset_password.dart';
 
 class ForgotPassord extends StatelessWidget {
-  final String name;
-  ForgotPassord({super.key, required this.name});
+  ForgotPassord({
+    super.key,
+  });
   final _formKey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
 
@@ -30,7 +31,7 @@ class ForgotPassord extends StatelessWidget {
                   ),
                   Text(
                     '''Forgot
-        Your Password?''',
+Your Password?''',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         color: Colors.white,
@@ -115,7 +116,7 @@ class ForgotPassord extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       final email = emailcontroller.text.trim();
 
-      AdminEntry? foundAdmin = await getAdminByName(name);
+      AdminEntry? foundAdmin = await getAdminByEmail(email);
 
       if (foundAdmin != null && foundAdmin.email == email) {
         Navigator.push(

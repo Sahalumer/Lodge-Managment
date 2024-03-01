@@ -4,17 +4,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'admin_model.g.dart';
 
 @HiveType(typeId: 1)
-class AdminEntry {
+class AdminEntry extends HiveObject {
   @HiveField(0)
-  int? id;
-
-  @HiveField(1)
   String name;
 
-  @HiveField(2)
+  @HiveField(1)
   String email;
 
-  @HiveField(3)
+  @HiveField(2)
   String password;
 
   AdminEntry({required this.name, required this.email, required this.password});
