@@ -6,6 +6,7 @@ import 'package:project/databaseconnection/Admin_Entry_db.dart';
 
 import 'package:project/model/admin_model.dart';
 import 'package:project/screens/Authonications/login_page.dart';
+import 'package:project/screens/terms_and_privacy/text.dart';
 
 class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
@@ -37,125 +38,133 @@ class CreateAccount extends StatelessWidget {
                         topRight: Radius.circular(17)),
                     color: Color.fromARGB(255, 1, 33, 90),
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Create Account',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: CustomTextField(
-                          controller: nameController,
-                          hintText: "Enter User Name",
-                          labelText: "User Name",
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: TextFormField(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
+                        const Text(
+                          'Create Account',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: CustomTextField(
+                            controller: nameController,
+                            hintText: "Enter User Name",
+                            labelText: "User Name",
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 217, 217, 217),
+                                hintText: 'Enter The Email ',
+                                labelText: 'Email',
+                                labelStyle: TextStyle(color: Colors.black)),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email address';
+                              } else if (!RegExp(
+                                      r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                                  .hasMatch(value)) {
+                                return 'Please enter a valid email address';
+                              }
+                              return null;
+                            },
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: TextFormField(
+                            controller: passwordController,
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               filled: true,
                               fillColor: Color.fromARGB(255, 217, 217, 217),
-                              hintText: 'Enter The Email ',
-                              labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black)),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email address';
-                            } else if (!RegExp(
-                                    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid email address';
-                            }
-                            return null;
-                          },
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: TextFormField(
-                          controller: passwordController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            filled: true,
-                            fillColor: Color.fromARGB(255, 217, 217, 217),
-                            hintText: 'Enter The PassWord',
-                            labelText: 'PassWord',
-                            labelStyle: TextStyle(
-                              color: Colors.black,
+                              hintText: 'Enter The PassWord',
+                              labelText: 'PassWord',
+                              labelStyle: TextStyle(
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Password is Empty";
-                            } else if (value.length < 6) {
-                              return "Minimum 6 Letters";
-                            } else {
-                              return null;
-                            }
-                          },
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      CustomElevatedButton(
-                        buttonText: "Sign-Up",
-                        onPressed: () => inSignUpButton(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Already Have An Account? ",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                            child: const Text(
-                              'Sign_In',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (ctx) => LoginPage(),
-                                ),
-                              );
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Password is Empty";
+                              } else if (value.length < 6) {
+                                return "Minimum 6 Letters";
+                              } else {
+                                return null;
+                              }
                             },
-                          )
-                        ],
-                      )
-                    ],
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        CustomElevatedButton(
+                          buttonText: "Create Account",
+                          onPressed: () => inSignUpButton(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Already Have An Account? ",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            GestureDetector(
+                              child: const Text(
+                                'Sign_In',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) => LoginPage(),
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * .06,
+                        ),
+                        const TermsOfUse()
+                      ],
+                    ),
                   ),
                 )
               ],
