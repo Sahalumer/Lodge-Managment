@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
+import 'package:project/functions/show_errors.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside/home_page.dart';
 import 'package:project/screens/inside/home_page_revenue.dart';
@@ -79,6 +80,7 @@ class _HomeState extends State<Home> {
 
   Future<void> loadhouse(String ownerName) async {
     house = await getAllHousesByOwnerAsync(ownerName);
+    await updateisPayedByMonth(house);
   }
 
   void _onItemTapped(int index) {

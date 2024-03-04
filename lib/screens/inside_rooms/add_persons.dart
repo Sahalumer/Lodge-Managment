@@ -152,10 +152,17 @@ class _AddPersonState extends State<AddPerson> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text('Join Date'),
-                                    CustomTextField(
-                                      labelText: "Join Month",
-                                      hintText: "dd/mm/year",
-                                      controller: monthController,
+                                    InkWell(
+                                      onTap: () {
+                                        toSelectDate();
+                                      },
+                                      child: IgnorePointer(
+                                        child: CustomTextField(
+                                          labelText: "Join Month",
+                                          hintText: "dd/mm/year",
+                                          controller: monthController,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -165,19 +172,26 @@ class _AddPersonState extends State<AddPerson> {
                               ),
                               const Padding(
                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                child: Text('Add ID Proof'),
+                                child: Text('ID Proof'),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: ElevatedButton.icon(
-                                  onPressed: () {
-                                    pickImageFromGallery();
-                                  },
-                                  icon: const Icon(Icons.image),
-                                  label: const Text('Add Image'),
+                              if (selectedImage == null)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      selectImageSource();
+                                    },
+                                    icon: const Icon(Icons.image),
+                                    label: const Text('Add Image'),
+                                  ),
                                 ),
-                              ),
+                              if (selectedImage != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: _buildImagePreview(),
+                                ),
                               Row(
                                 children: [
                                   SizedBox(
@@ -338,6 +352,17 @@ class _AddPersonState extends State<AddPerson> {
     });
   }
 
+  Future<void> pickImageFromcamera() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedImage == null) return;
+
+    setState(() {
+      imagePath = File(pickedImage.path);
+      selectedImage = pickedImage.path;
+    });
+  }
+
   void onAddButton() async {
     if (formKey.currentState!.validate()) {
       if (selectedImage == null) {
@@ -375,6 +400,76 @@ class _AddPersonState extends State<AddPerson> {
         duration: Duration(seconds: 3),
         backgroundColor: Colors.grey,
       ),
+    );
+  }
+
+  toSelectDate() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    ).then((selectedDate) {
+      if (selectedDate != null) {
+        monthController.text =
+            "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+      }
+    });
+  }
+
+  Widget _buildImagePreview() {
+    return Column(
+      children: [
+        if (selectedImage != null)
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(File(selectedImage!)),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            selectImageSource();
+          },
+          child: const Text('Change Image'),
+        ),
+      ],
+    );
+  }
+
+  Future<void> selectImageSource() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+              height: MediaQuery.of(context).size.height * .12,
+              child: Column(
+                children: [
+                  TextButton.icon(
+                      onPressed: () {
+                        pickImageFromcamera();
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.camera_enhance),
+                      label: const Text("Camera")),
+                  TextButton.icon(
+                      onPressed: () {
+                        pickImageFromGallery();
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.camera),
+                      label: const Text("gallery"))
+                ],
+              )),
+        );
+      },
     );
   }
 }

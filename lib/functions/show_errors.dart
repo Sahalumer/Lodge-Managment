@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/screens/inside_house/payment_dues.dart';
 
@@ -66,4 +67,39 @@ getIncompletedPaymentByHouses(List<House> houses) {
   }
   peymentdues.value.addAll(value);
   peymentdues.notifyListeners();
+}
+
+updateisPayedByMonth(List<House> houses) async {
+  final now = DateTime.now();
+  final intMonth = now.month;
+  List<String> months = [
+    '',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  String currentMonth = months[intMonth];
+
+  for (var house in houses) {
+    for (var floor in house.roomCount) {
+      for (var rooms in floor) {
+        for (var person in rooms.persons) {
+          if (person.revenue.keys.last != currentMonth) {
+            person.isPayed = false;
+            await updatePersonInRoomAsync(house.key, person.roomName, person);
+          }
+        }
+      }
+    }
+  }
 }

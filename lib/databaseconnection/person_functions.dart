@@ -145,5 +145,7 @@ Future<List<Person>> getPersonsByRoomName(int houseKey, String roomName) async {
       }
     }
     return [];
-  } finally {}
+  } finally {
+    closeHouseBox(houseBox);
+  }
 }
