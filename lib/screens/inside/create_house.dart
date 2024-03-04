@@ -112,6 +112,7 @@ class _CreateHouseState extends State<CreateHouse> {
                                           labelText: "House Name",
                                           hintText: "Enter The House Name",
                                           controller: houseNameController,
+                                          keyboardType: TextInputType.name,
                                         ),
                                       ],
                                     )),
@@ -134,6 +135,7 @@ class _CreateHouseState extends State<CreateHouse> {
                                           labelText: "Floor Count",
                                           hintText: "Enter The Floor Count",
                                           controller: floorCountController,
+                                          keyboardType: TextInputType.number,
                                         ),
                                       ],
                                     )),
@@ -159,8 +161,8 @@ class _CreateHouseState extends State<CreateHouse> {
                                             labelText: "Room Count ${i + 1}",
                                             hintText:
                                                 'Rooms Count In Floor ${i + 1}',
-                                            controller:
-                                                roomCountControllers[i]),
+                                            controller: roomCountControllers[i],
+                                            keyboardType: TextInputType.number),
                                       ],
                                     ),
                                   ),

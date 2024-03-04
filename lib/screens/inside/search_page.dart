@@ -27,6 +27,7 @@ class _SearchPageState extends State<SearchPage> {
         appBar: AppBar(
           title: TextField(
             controller: _searchController,
+            keyboardType: TextInputType.name,
             decoration: const InputDecoration(
               hintText: 'Search..',
               icon: Icon(Icons.search),

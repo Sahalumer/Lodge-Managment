@@ -76,6 +76,7 @@ updatePayment(
                 const SizedBox(height: 2),
                 TextFormField(
                   controller: amountController,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     filled: true,

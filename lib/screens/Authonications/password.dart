@@ -54,6 +54,7 @@ Your Password?''',
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: TextFormField(
                   controller: emailcontroller,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     filled: true,

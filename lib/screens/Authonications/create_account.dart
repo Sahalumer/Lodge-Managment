@@ -60,6 +60,7 @@ class CreateAccount extends StatelessWidget {
                             controller: nameController,
                             hintText: "Enter User Name",
                             labelText: "User Name",
+                            keyboardType: TextInputType.name,
                           ),
                         ),
                         const SizedBox(

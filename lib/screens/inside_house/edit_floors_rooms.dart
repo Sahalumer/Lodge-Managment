@@ -63,6 +63,7 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
                         labelText: 'Floor Count',
                         hintText: "Enter The Floor Count",
                         controller: newFloorCountController,
+                        keyboardType: TextInputType.number,
                       ),
                       const SizedBox(height: 10),
                       for (int i = 0; i < newRoomCountControllers.length; i++)
@@ -78,6 +79,7 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
                               labelText: 'Room Count',
                               hintText: "Enter The Room Count",
                               controller: newRoomCountControllers[i],
+                              keyboardType: TextInputType.number,
                             ),
                             const SizedBox(height: 15),
                           ],

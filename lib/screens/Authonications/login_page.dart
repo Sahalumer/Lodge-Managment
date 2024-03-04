@@ -59,6 +59,7 @@ class LoginPage extends StatelessWidget {
                       labelText: "PassWord",
                       hintText: "PassWord",
                       controller: passwordController,
+                      keyboardType: TextInputType.name,
                     ),
                   ),
                   const SizedBox(
