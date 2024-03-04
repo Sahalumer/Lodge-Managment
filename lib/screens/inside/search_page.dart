@@ -1,6 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
+import 'package:project/functions/show_errors.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/screens/inside_house/inside_house.dart';
+import 'package:project/screens/inside_rooms/person_details.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -38,19 +44,56 @@ class _SearchPageState extends State<SearchPage> {
                     itemCount: _searchedPersons.length + _searchedHouses.length,
                     itemBuilder: (context, index) {
                       if (index < _searchedPersons.length) {
-                        return ListTile(
-                          title:
-                              Text('Person: ${_searchedPersons[index].name}'),
-                          subtitle:
-                              Text('Room: ${_searchedPersons[index].roomName}'),
+                        return Card(
+                          child: ListTile(
+                            title: Text(_searchedPersons[index].name),
+                            subtitle: Text(
+                              _searchedPersons[index].isPayed
+                                  ? ''
+                                  : 'Payment Expired',
+                              style: TextStyle(color: AppColor.red.color),
+                            ),
+                            onTap: () async {
+                              House? house = await getHouseByRoomName(
+                                  _searchedPersons[index].roomName);
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => PersonDetails(
+                                          houseKey: house!.key,
+                                          personName:
+                                              _searchedPersons[index].name,
+                                          roomName:
+                                              _searchedPersons[index].roomName,
+                                          index: index)));
+                            },
+                          ),
                         );
                       } else {
                         int houseIndex = index - _searchedPersons.length;
-                        return ListTile(
-                          title: Text(
-                              'House: ${_searchedHouses[houseIndex].houseName}'),
-                          subtitle: Text(
-                              'Owner: ${_searchedHouses[houseIndex].ownerName}'),
+                        int bedspace = findBedSpaceAvailablebyHouse(
+                            _searchedHouses[houseIndex]);
+                        return Card(
+                          child: ListTile(
+                            title: Text(_searchedHouses[houseIndex].houseName),
+                            subtitle: Text(
+                              ' $bedspace BedSpace Available',
+                              style: TextStyle(color: AppColor.red.color),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => HouseHomePage(
+                                          houseKey:
+                                              _searchedHouses[houseIndex].key,
+                                          houseName: _searchedHouses[houseIndex]
+                                              .houseName,
+                                          ownerName: _searchedHouses[houseIndex]
+                                              .ownerName)));
+                            },
+                          ),
                         );
                       }
                     },
@@ -63,7 +106,6 @@ class _SearchPageState extends State<SearchPage> {
     List<Person> persons = [];
     List<House> houses = [];
 
-    // Search for persons
     for (var house in houseList.value) {
       for (var floor in house.roomCount) {
         for (var room in floor) {
@@ -76,7 +118,6 @@ class _SearchPageState extends State<SearchPage> {
       }
     }
 
-    // Search for houses
     houses.addAll(houseList.value.where((house) =>
         house.houseName.toLowerCase().contains(query.toLowerCase())));
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/screens/inside_house/payment_dues.dart';
 
 class AllHouseRevenue extends StatefulWidget {
   final List<House> houses;
@@ -61,65 +62,100 @@ class _AllHouseRevenueState extends State<AllHouseRevenue> {
               totalRevenue = _calculateTotalRevenue(snapshot.data!);
               totalMonthRevenue = _calculateMonthRevenue(snapshot.data!);
               return Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * .28,
-                  width: MediaQuery.of(context).size.width * .8,
-                  color: AppColor.primary.color,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        'Total Revenue: $totalRevenue',
-                        style: TextStyle(
-                          color: AppColor.white.color,
-                          fontSize: 20,
-                        ),
-                      ),
-                      const SizedBox(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButtonFormField(
-                          value: selectedMonth,
-                          items: months.map((String month) {
-                            return DropdownMenuItem<String>(
-                              value: month,
-                              child: Text(month),
-                            );
-                          }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              selectedMonth = value!;
-                            });
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            filled: true,
-                            fillColor: Color.fromARGB(255, 217, 217, 217),
-                            hintText: "Select the Month",
-                            labelStyle: TextStyle(color: Colors.black),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * .28,
+                      width: MediaQuery.of(context).size.width * .8,
+                      color: AppColor.primary.color,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 15,
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select the Month';
-                            }
-                            return null;
-                          },
-                        ),
+                          Text(
+                            'Total Revenue: $totalRevenue',
+                            style: TextStyle(
+                              color: AppColor.white.color,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButtonFormField(
+                              value: selectedMonth,
+                              items: months.map((String month) {
+                                return DropdownMenuItem<String>(
+                                  value: month,
+                                  child: Text(month),
+                                );
+                              }).toList(),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedMonth = value!;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 217, 217, 217),
+                                hintText: "Select the Month",
+                                labelStyle: TextStyle(color: Colors.black),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please select the Month';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Total Revenue in $selectedMonth : $totalMonthRevenue',
+                              style: TextStyle(
+                                color: AppColor.white.color,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Total Revenue in $selectedMonth : $totalMonthRevenue',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'View Incompleted Payments? ',
                           style: TextStyle(
-                            color: AppColor.white.color,
-                            fontSize: 20,
-                          ),
+                              fontWeight: FontWeight.w500, fontSize: 16),
                         ),
-                      ),
-                    ],
-                  ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => Payment_dues(
+                                          houses: widget.houses,
+                                        )));
+                          },
+                          child: Text(
+                            "Click Here ",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.primary.color),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               );
             }

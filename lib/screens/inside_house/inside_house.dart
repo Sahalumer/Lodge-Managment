@@ -62,12 +62,15 @@ class _HouseHomePageState extends State<HouseHomePage> {
                 child: Image.asset('Assets/Image/LogoImage.png'),
               ),
               ListTile(
-                title: Text('Peynment Dues'),
-                onTap: () {
+                title: Text('Incompleted Payments'),
+                onTap: () async {
+                  House house = await getHouseByKeyAsync(widget.houseKey);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Payment_dues(),
+                        builder: (context) => Payment_dues(
+                          house: house,
+                        ),
                       ));
                 },
               ),

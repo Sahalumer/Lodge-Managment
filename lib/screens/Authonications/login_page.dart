@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: CustomTextField(
                       labelText: "User Name",
-                      hintText: "Enter The User Name",
+                      hintText: "User Name",
                       controller: nameController,
                     ),
                   ),
@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: CustomTextField(
                       labelText: "PassWord",
-                      hintText: "Enter The PassWord",
+                      hintText: "PassWord",
                       controller: passwordController,
                     ),
                   ),
