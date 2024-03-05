@@ -137,7 +137,6 @@ class _PersonDetailsState extends State<PersonDetails> {
                             onPressed: () {
                               updatePayment(context, person, widget.houseKey,
                                   widget.roomName);
-                              print(person.revenue);
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

@@ -17,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     splashScreen(context);
     super.initState();
   }
@@ -51,7 +50,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final savedvalue = sahredprefes.getString('value');
     if (savedvalue != null) {
-      print(savedvalue);
       await getAllHousesByOwnerAsync(savedvalue);
       if (houseList.value.isEmpty) {
         await Navigator.pushReplacement(context,

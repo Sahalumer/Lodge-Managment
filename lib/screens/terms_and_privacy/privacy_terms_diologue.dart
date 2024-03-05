@@ -20,7 +20,8 @@ class PolicyDiologue extends StatelessWidget {
         children: [
           Expanded(
             child: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 150)).then((value) {
+              future: Future.delayed(const Duration(milliseconds: 150))
+                  .then((value) {
                 return rootBundle.loadString('Assets/$mdFileName');
               }),
               builder: (context, snapshot) {
@@ -31,7 +32,7 @@ class PolicyDiologue extends StatelessWidget {
                     return Markdown(data: snapshot.data!);
                   }
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
@@ -40,7 +41,7 @@ class PolicyDiologue extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Close"))
+              child: const Text("Close"))
         ],
       ),
     );

@@ -24,7 +24,6 @@ class _InsideFloorState extends State<InsideFloor> {
   late List<int> bedSpace;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     bedSpace = findBedSpaceAvailablebyRooms(widget.house, widget.index);
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:project/components/components.dart';
 import 'package:project/databaseconnection/house_db.dart';
@@ -62,20 +64,20 @@ class _HouseHomePageState extends State<HouseHomePage> {
                 child: Image.asset('Assets/Image/LogoImage.png'),
               ),
               ListTile(
-                title: Text('Incompleted Payments'),
+                title: const Text('Incompleted Payments'),
                 onTap: () async {
                   House house = await getHouseByKeyAsync(widget.houseKey);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Payment_dues(
+                        builder: (context) => PaymentDues(
                           house: house,
                         ),
                       ));
                 },
               ),
               ListTile(
-                title: Text('Revenue'),
+                title: const Text('Revenue'),
                 onTap: () {
                   Navigator.push(
                       context,

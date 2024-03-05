@@ -125,13 +125,13 @@ class _AllHouseRevenueState extends State<AllHouseRevenue> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'View Incompleted Payments? ',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 16),
@@ -141,7 +141,7 @@ class _AllHouseRevenueState extends State<AllHouseRevenue> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (ctx) => Payment_dues(
+                                    builder: (ctx) => PaymentDues(
                                           houses: widget.houses,
                                         )));
                           },
