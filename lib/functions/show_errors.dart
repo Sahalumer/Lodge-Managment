@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
-import 'package:project/screens/inside_house/payment_dues.dart';
 
 List<int> findBedSpaceAvailableByFloor(House house) {
   return house.roomCount.map((rooms) {
