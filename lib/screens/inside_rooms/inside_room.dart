@@ -44,7 +44,7 @@ class _InsideRoomState extends State<InsideRoom> {
                     Image.asset('Assets/Image/LogoImage.png'),
                     Container(
                       color: AppColor.secondary.color,
-                      height: 340,
+                      height: MediaQuery.of(context).size.height * .39,
                       margin: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 22),
                       child: Padding(
@@ -75,31 +75,37 @@ class _InsideRoomState extends State<InsideRoom> {
                                     setState(() {});
                                   });
                                 },
-                                child: Container(
-                                  color: AppColor.white.color,
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(height: 15),
-                                      Image.asset(
-                                        'Assets/Image/users.png',
-                                        height: 100,
-                                      ),
-                                      Text(
-                                        room.persons[index].name,
-                                        style: TextStyle(
-                                            color: room.persons[index].isPayed
-                                                ? Colors.black
-                                                : Colors.red),
-                                      ),
-                                      Text(
-                                        room.persons[index].phoneNumber
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: room.persons[index].isPayed
-                                                ? Colors.black
-                                                : Colors.red),
-                                      )
-                                    ],
+                                child: SingleChildScrollView(
+                                  child: Container(
+                                    color: AppColor.white.color,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .009),
+                                        Image.asset(
+                                          'Assets/Image/users.png',
+                                          height: 100,
+                                        ),
+                                        Text(
+                                          room.persons[index].name,
+                                          style: TextStyle(
+                                              color: room.persons[index].isPayed
+                                                  ? Colors.black
+                                                  : Colors.red),
+                                        ),
+                                        Text(
+                                          room.persons[index].phoneNumber
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: room.persons[index].isPayed
+                                                  ? Colors.black
+                                                  : Colors.red),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

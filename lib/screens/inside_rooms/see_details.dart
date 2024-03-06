@@ -20,7 +20,7 @@ class SeeDetails extends StatelessWidget {
               Image.asset('Assets/Image/LogoImage.png'),
               SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.658,
+                  height: MediaQuery.of(context).size.height * 0.710,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
@@ -49,11 +49,13 @@ class SeeDetails extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    Text(
-                                      person.name,
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
+                                    Expanded(
+                                      child: Text(
+                                        person.name,
+                                        style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],

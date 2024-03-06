@@ -81,90 +81,98 @@ class _PersonDetailsState extends State<PersonDetails> {
                       color: AppColor.primary.color,
                       height: MediaQuery.of(context).size.height * .40,
                       width: MediaQuery.of(context).size.width * .80,
-                      child: Column(
-                        children: [
-                          const CircleAvatar(
-                            radius: 65,
-                            backgroundImage:
-                                AssetImage('Assets/Image/users.png'),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                      child: Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
                             children: [
-                              Text(
-                                'Name : ',
-                                style: TextStyle(
-                                  color: AppColor.white.color,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
+                              const CircleAvatar(
+                                radius: 65,
+                                backgroundImage:
+                                    AssetImage('Assets/Image/users.png'),
                               ),
-                              Text(
-                                person.name,
-                                style: TextStyle(
-                                  color: AppColor.white.color,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Phone Number : ',
-                                style: TextStyle(
-                                  color: AppColor.white.color,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                person.phoneNumber.toString(),
-                                style: TextStyle(
-                                  color: AppColor.white.color,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 15),
-                          ElevatedButton(
-                            onPressed: () {
-                              updatePayment(context, person, widget.houseKey,
-                                  widget.roomName);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              minimumSize: const Size(210, 43),
-                              backgroundColor: Colors.white,
-                            ),
-                            child: const Text('Payment'),
-                          ),
-                          const SizedBox(height: 5.1),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (ctx) => SeeDetails(
-                                    person: person,
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Name : ',
+                                    style: TextStyle(
+                                      color: AppColor.white.color,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                    ),
                                   ),
+                                  Expanded(
+                                    child: Text(
+                                      person.name,
+                                      style: TextStyle(
+                                        color: AppColor.white.color,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Phone Number : ',
+                                    style: TextStyle(
+                                      color: AppColor.white.color,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      person.phoneNumber.toString(),
+                                      style: TextStyle(
+                                        color: AppColor.white.color,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 15),
+                              ElevatedButton(
+                                onPressed: () {
+                                  updatePayment(context, person,
+                                      widget.houseKey, widget.roomName);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  minimumSize: const Size(210, 43),
+                                  backgroundColor: Colors.white,
                                 ),
-                              );
-                            },
-                            child: Text(
-                              'See Details>>',
-                              style: TextStyle(color: AppColor.white.color),
-                            ),
-                          )
-                        ],
+                                child: const Text('Payment'),
+                              ),
+                              const SizedBox(height: 5.1),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (ctx) => SeeDetails(
+                                        person: person,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'See Details>>',
+                                  style: TextStyle(color: AppColor.white.color),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     Visibility(

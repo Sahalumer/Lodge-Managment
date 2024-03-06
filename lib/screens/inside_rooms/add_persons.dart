@@ -70,7 +70,7 @@ class _AddPersonState extends State<AddPerson> {
                 key: formKey,
                 child: SingleChildScrollView(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.658,
+                    height: MediaQuery.of(context).size.height * 0.715,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -376,7 +376,7 @@ class _AddPersonState extends State<AddPerson> {
 
       final person = Person(
           name: nameController.text,
-          phoneNumber: int.parse(phoneController.text),
+          phoneNumber: int.parse(phoneController.text.trim()),
           imagePath: selectedImage!,
           isPayed: isPayed,
           roomName: widget.roomName,
