@@ -7,6 +7,9 @@ import 'package:project/model/house_model.dart';
 import 'package:project/screens/Authonications/login_page.dart';
 import 'package:project/screens/inside/create_house.dart';
 import 'package:project/screens/inside_house/inside_house.dart';
+import 'package:project/screens/terms_and_privacy/about.dart';
+import 'package:project/screens/terms_and_privacy/privacy.dart';
+import 'package:project/screens/terms_and_privacy/privacy_terms_diologue.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,6 +35,36 @@ class HomePage extends StatelessWidget {
               icon: const Icon(Icons.logout_outlined),
             )
           ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColor.primary.color,
+                ),
+                child: Image.asset('Assets/Image/LogoImage.png'),
+              ),
+              ListTile(
+                title: const Text('Privacy & Policy'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) =>
+                              Privacy(mdFileName: 'privacy_policy.md')));
+                },
+              ),
+              ListTile(
+                title: const Text('About'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => AboutScreen()));
+                },
+              ),
+            ],
+          ),
         ),
         body: ValueListenableBuilder(
           valueListenable: houseList,

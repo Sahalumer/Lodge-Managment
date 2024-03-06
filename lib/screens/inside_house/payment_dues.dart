@@ -26,32 +26,37 @@ class PaymentDues extends StatelessWidget {
       body: ValueListenableBuilder(
           valueListenable: peymentdues,
           builder: (BuildContext context, List<Person> list, Widget? child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 5,
-                      child: ListTile(
-                        title: Text(list[index].name),
-                        subtitle: Text(list[index].phoneNumber.toString()),
-                        onTap: () async {
-                          House? houseForKey =
-                              await getHouseByRoomName(list[index].roomName);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => PersonDetails(
-                                      houseKey: houseForKey!.key,
-                                      personName: list[index].name,
-                                      roomName: list[index].roomName,
-                                      index: index)));
-                        },
-                      ),
-                    );
-                  }),
-            );
+            return list.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        itemCount: list.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 5,
+                            child: ListTile(
+                              title: Text(list[index].name),
+                              subtitle:
+                                  Text(list[index].phoneNumber.toString()),
+                              onTap: () async {
+                                House? houseForKey = await getHouseByRoomName(
+                                    list[index].roomName);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) => PersonDetails(
+                                            houseKey: houseForKey!.key,
+                                            personName: list[index].name,
+                                            roomName: list[index].roomName,
+                                            index: index)));
+                              },
+                            ),
+                          );
+                        }),
+                  )
+                : Center(
+                    child: Text("Every One Done Payment"),
+                  );
           }),
     ));
   }

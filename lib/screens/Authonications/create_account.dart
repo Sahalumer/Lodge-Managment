@@ -56,70 +56,104 @@ class CreateAccount extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: CustomTextField(
-                            controller: nameController,
-                            hintText: "Enter User Name",
-                            labelText: "User Name",
-                            keyboardType: TextInputType.name,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: TextFormField(
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 217, 217, 217),
-                                hintText: 'Enter The Email ',
-                                labelText: 'Email',
-                                labelStyle: TextStyle(color: Colors.black)),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email address';
-                              } else if (!RegExp(
-                                      r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                                  .hasMatch(value)) {
-                                return 'Please enter a valid email address';
-                              }
-                              return null;
-                            },
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: TextFormField(
-                            controller: passwordController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 217, 217, 217),
-                              hintText: 'Enter The PassWord',
-                              labelText: 'PassWord',
-                              labelStyle: TextStyle(
-                                color: Colors.black,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'User Name',
+                                style: TextStyle(
+                                  color: AppColor.white.color,
+                                ),
                               ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Password is Empty";
-                              } else if (value.length < 6) {
-                                return "Minimum 6 Letters";
-                              } else {
-                                return null;
-                              }
-                            },
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                              CustomTextField(
+                                controller: nameController,
+                                hintText: "Enter User Name",
+                                labelText: "",
+                                keyboardType: TextInputType.name,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Email',
+                                style: TextStyle(
+                                  color: AppColor.white.color,
+                                ),
+                              ),
+                              TextFormField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor:
+                                        Color.fromARGB(255, 217, 217, 217),
+                                    hintText: 'Enter The Email ',
+                                    labelText: '',
+                                    labelStyle: TextStyle(color: Colors.black)),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email address';
+                                  } else if (!RegExp(
+                                          r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                                      .hasMatch(value)) {
+                                    return 'Please enter a valid email address';
+                                  }
+                                  return null;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'PassWord',
+                                style: TextStyle(
+                                  color: AppColor.white.color,
+                                ),
+                              ),
+                              TextFormField(
+                                controller: passwordController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(255, 217, 217, 217),
+                                  hintText: 'Enter The PassWord',
+                                  labelText: '',
+                                  labelStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Password is Empty";
+                                  } else if (value.length < 6) {
+                                    return "Minimum 6 Letters";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(

@@ -10,7 +10,7 @@ Future<Box<House>> openHouseBox() async {
   return await Hive.openBox<House>(houseBoxName);
 }
 
-void closeHouseBox(Box<House>? box) async {
+closeHouseBox(Box<House>? box) async {
   if (box != null && box.isOpen) {
     await box.close();
   }
@@ -146,6 +146,6 @@ Future<List<Person>> getPersonsByRoomName(int houseKey, String roomName) async {
     }
     return [];
   } finally {
-    closeHouseBox(houseBox);
+    await closeHouseBox(houseBox);
   }
 }

@@ -51,7 +51,7 @@ updateHouseAsync(int id, House updated) async {
     await getAllHousesByOwnerAsync(updated.ownerName);
   } finally {
     if (houseBox.isOpen) {
-      await houseBox.close();
+      closeHouseBox(houseBox);
     }
   }
 }
