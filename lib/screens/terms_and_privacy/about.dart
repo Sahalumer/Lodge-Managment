@@ -22,12 +22,12 @@ class AboutScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'House Manager',
+                  'PG Manager',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'House Manager is a comprehensive application designed to simplify the management of rental houses and lodges for property owners. With House Manager, you can effortlessly oversee multiple properties, keeping track of bedspaces, rent payments, and revenue generation.',
+                  'PG Manager is a comprehensive application designed to simplify the management of rental houses and lodges for property owners. With House Manager, you can effortlessly oversee multiple properties, keeping track of bedspaces, rent payments, and revenue generation.',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 16),
                 ),
