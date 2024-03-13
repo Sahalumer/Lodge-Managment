@@ -55,7 +55,7 @@ class PaymentDues extends StatelessWidget {
                           );
                         }),
                   )
-                : Center(
+                : const Center(
                     child: Text("Every One Done Payment"),
                   );
           }),
