@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/model/admin_model.dart';
+import 'package:project/authonications/models/admin_model.dart';
 
 ValueNotifier<List<AdminEntry>> adminList = ValueNotifier([]);
 const String adminBoxName = "adminDb";
@@ -23,7 +23,6 @@ void getAllAdmins() async {
 }
 
 void updateAdmin(int id, AdminEntry admin) async {
-  // Open the box if not opened yet
   if (!Hive.isBoxOpen('admin db')) {
     final adminBox = await Hive.openBox<AdminEntry>(adminBoxName);
     adminBox.put(id, admin);

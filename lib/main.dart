@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/model/admin_model.dart';
+import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/model/house_model.dart';
-import 'package:project/screens/Authonications/splash_screen.dart';
+import 'package:project/authonications/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
