@@ -1,13 +1,14 @@
-// ignore_for_file: file_names
+// screens/auth/create_account.dart
 
 import 'package:flutter/material.dart';
 import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/authonications/screens/login_page.dart';
+import 'package:project/databaseconnection/Admin_Entry_db.dart';
+import 'package:project/privacy_terms/terms_and_privacy/text.dart';
 import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
 import 'package:project/widgets/custom_textfield.dart';
-import 'package:project/databaseconnection/Admin_Entry_db.dart';
-import 'package:project/privacy_terms/terms_and_privacy/text.dart';
+import 'package:project/widgets/validator.dart';
 
 class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
@@ -100,16 +101,7 @@ class CreateAccount extends StatelessWidget {
                                     hintText: 'Enter The Email ',
                                     labelText: '',
                                     labelStyle: TextStyle(color: Colors.black)),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email address';
-                                  } else if (!RegExp(
-                                          r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email address';
-                                  }
-                                  return null;
-                                },
+                                validator: Validators.emailValidator,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                               ),
@@ -142,15 +134,7 @@ class CreateAccount extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                 ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Password is Empty";
-                                  } else if (value.length < 6) {
-                                    return "Minimum 6 Letters";
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                validator: Validators.passwordValidator,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                               ),
@@ -162,7 +146,7 @@ class CreateAccount extends StatelessWidget {
                         ),
                         CustomElevatedButton(
                           buttonText: "Create Account",
-                          onPressed: () => inSignUpButton(context),
+                          onPressed: () => _inSignUpButton(context),
                         ),
                         const SizedBox(
                           height: 10,
@@ -211,7 +195,7 @@ class CreateAccount extends StatelessWidget {
     );
   }
 
-  inSignUpButton(BuildContext context) {
+  _inSignUpButton(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       final name = nameController.text.trim();
       final email = emailController.text.trim();
