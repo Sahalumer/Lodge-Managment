@@ -75,116 +75,115 @@ class _PersonDetailsState extends State<PersonDetails> {
             } else if (snapshot.hasData) {
               Person person = snapshot.data!;
               return Center(
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        color: primary,
-                        // height: MediaQuery.of(context).size.height * .40,
-                        width: MediaQuery.of(context).size.width * .9,
-                        child: Expanded(
-                          child: Column(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      color: primary,
+                      width: MediaQuery.of(context).size.width * .9,
+                      child: Column(
+                        children: [
+                          const CircleAvatar(
+                            radius: 65,
+                            backgroundImage:
+                                AssetImage('Assets/Image/users.png'),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const CircleAvatar(
-                                radius: 65,
-                                backgroundImage:
-                                    AssetImage('Assets/Image/users.png'),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Name : ',
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    person.name,
-                                    style: const TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Phone Number : ',
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    person.phoneNumber.toString(),
-                                    style: const TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 15),
-                              ElevatedButton(
-                                onPressed: () {
-                                  updatePayment(context, person,
-                                      widget.houseKey, widget.roomName);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  minimumSize: const Size(210, 43),
-                                  backgroundColor: Colors.white,
+                              const Text(
+                                'Name : ',
+                                style: TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
                                 ),
-                                child: const Text('Payment'),
                               ),
-                              const SizedBox(height: 5.1),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (ctx) => SeeDetails(
-                                        person: person,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: const Text(
-                                  'See Details>>',
-                                  style: TextStyle(color: white),
+                              Text(
+                                person.name,
+                                style: const TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: person.isPayed ? false : true,
-                        child: const Text(
-                          "Payment Expired... Update It! ",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17,
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Phone Number : ',
+                                style: TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                person.phoneNumber.toString(),
+                                style: const TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
                           ),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () {
+                              updatePayment(
+                                context,
+                                person,
+                                widget.houseKey,
+                                widget.roomName,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              minimumSize: const Size(210, 43),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: const Text('Payment'),
+                          ),
+                          const SizedBox(height: 5.1),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (ctx) => SeeDetails(
+                                    person: person,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'See Details>>',
+                              style: TextStyle(color: white),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: person.isPayed ? false : true,
+                      child: const Text(
+                        "Payment Expired... Update It! ",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             } else {

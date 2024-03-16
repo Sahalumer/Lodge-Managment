@@ -71,8 +71,7 @@ class _AddPersonState extends State<AddPerson> {
                 key: formKey,
                 child: SingleChildScrollView(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.658,
-                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.715,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(17),

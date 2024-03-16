@@ -126,6 +126,18 @@ updatePayment(
                 await updatePersonInRoomAsync(
                     houseKey, roomName, updatedPerson);
                 Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    content: Text(
+                      "updated successfully",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.grey,
+                  ),
+                );
               }
             },
           ),

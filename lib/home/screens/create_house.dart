@@ -77,132 +77,127 @@ class _CreateHouseState extends State<CreateHouse> {
                           topRight: Radius.circular(17)),
                       color: Color.fromARGB(255, 1, 33, 90),
                     ),
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const Text(
-                                    'Create House',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'House Name',
-                                            style: TextStyle(color: white),
-                                          ),
-                                          CustomTextField(
-                                            labelText: "House Name",
-                                            hintText: "Enter The House Name",
-                                            controller: houseNameController,
-                                            keyboardType: TextInputType.name,
-                                          ),
-                                        ],
-                                      )),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Floor Count',
-                                            style: TextStyle(color: white),
-                                          ),
-                                          CustomTextField(
-                                            labelText: "Floor Count",
-                                            hintText: "Enter The Floor Count",
-                                            controller: floorCountController,
-                                            keyboardType: TextInputType.number,
-                                          ),
-                                        ],
-                                      )),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  for (int i = 0;
-                                      i < roomCountControllers.length;
-                                      i++)
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Room Count ${i + 1}',
-                                            style:
-                                                const TextStyle(color: white),
-                                          ),
-                                          CustomTextField(
-                                              labelText: "Room Count ${i + 1}",
-                                              hintText:
-                                                  'Rooms Count In Floor ${i + 1}',
-                                              controller:
-                                                  roomCountControllers[i],
-                                              keyboardType:
-                                                  TextInputType.number),
-                                        ],
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  minimumSize: const Size(250, 53),
-                                  backgroundColor: Colors.white,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                                onPressed: () {
-                                  onCreateButton(context);
-                                },
-                                child: const Text(
+                                const Text(
                                   'Create House',
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'House Name',
+                                          style: TextStyle(color: white),
+                                        ),
+                                        CustomTextField(
+                                          labelText: "House Name",
+                                          hintText: "Enter The House Name",
+                                          controller: houseNameController,
+                                          keyboardType: TextInputType.name,
+                                        ),
+                                      ],
+                                    )),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Floor Count',
+                                          style: TextStyle(color: white),
+                                        ),
+                                        CustomTextField(
+                                          labelText: "Floor Count",
+                                          hintText: "Enter The Floor Count",
+                                          controller: floorCountController,
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ],
+                                    )),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                for (int i = 0;
+                                    i < roomCountControllers.length;
+                                    i++)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Room Count ${i + 1}',
+                                          style: const TextStyle(color: white),
+                                        ),
+                                        CustomTextField(
+                                            labelText: "Room Count ${i + 1}",
+                                            hintText:
+                                                'Rooms Count In Floor ${i + 1}',
+                                            controller: roomCountControllers[i],
+                                            keyboardType: TextInputType.number),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                minimumSize: const Size(250, 53),
+                                backgroundColor: Colors.white,
                               ),
-                              const SizedBox(
-                                height: 20,
+                              onPressed: () {
+                                onCreateButton(context);
+                              },
+                              child: const Text(
+                                'Create House',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
                               ),
-                            ],
-                          )
-                        ],
-                      ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
