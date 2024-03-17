@@ -3,12 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/authonications/screens/login_page.dart';
+import 'package:project/authonications/widgets/text_field.dart';
 import 'package:project/databaseconnection/Admin_Entry_db.dart';
 import 'package:project/privacy_terms/terms_and_privacy/text.dart';
-import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
-import 'package:project/widgets/custom_textfield.dart';
-import 'package:project/widgets/validator.dart';
 
 class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
@@ -56,91 +54,27 @@ class CreateAccount extends StatelessWidget {
                         const SizedBox(
                           height: 30,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'User Name',
-                                style: TextStyle(
-                                  color: white,
-                                ),
-                              ),
-                              CustomTextField(
-                                controller: nameController,
-                                hintText: "Enter User Name",
-                                labelText: "",
-                                keyboardType: TextInputType.name,
-                              ),
-                            ],
-                          ),
-                        ),
+                        TextFieldInAuhtonications(
+                            text: "User Name",
+                            controller: nameController,
+                            hintText: 'Enter User Name',
+                            keyboard: TextInputType.name),
                         const SizedBox(
                           height: 15,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Email',
-                                style: TextStyle(
-                                  color: white,
-                                ),
-                              ),
-                              TextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    filled: true,
-                                    fillColor:
-                                        Color.fromARGB(255, 217, 217, 217),
-                                    hintText: 'Enter The Email ',
-                                    labelText: '',
-                                    labelStyle: TextStyle(color: Colors.black)),
-                                validator: Validators.emailValidator,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                              ),
-                            ],
-                          ),
-                        ),
+                        TextFieldInAuhtonications(
+                            text: "Email",
+                            controller: emailController,
+                            hintText: "Enter The Email",
+                            keyboard: TextInputType.emailAddress),
                         const SizedBox(
                           height: 15,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'PassWord',
-                                style: TextStyle(
-                                  color: white,
-                                ),
-                              ),
-                              TextFormField(
-                                controller: passwordController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  filled: true,
-                                  fillColor: Color.fromARGB(255, 217, 217, 217),
-                                  hintText: 'Enter The PassWord',
-                                  labelText: '',
-                                  labelStyle: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                validator: Validators.passwordValidator,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                              ),
-                            ],
-                          ),
-                        ),
+                        TextFieldInAuhtonications(
+                            text: "Password",
+                            controller: passwordController,
+                            hintText: "Enter The Password",
+                            keyboard: TextInputType.text),
                         const SizedBox(
                           height: 30,
                         ),

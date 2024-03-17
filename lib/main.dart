@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.blue,
     );
     return MaterialApp(
-      title: 'Control Your Home',
+      title: 'PG Manager',
       theme: themeData,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
