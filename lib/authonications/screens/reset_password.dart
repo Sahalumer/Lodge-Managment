@@ -1,24 +1,23 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:project/authonications/widgets/password_textfield.dart';
 import 'package:project/databaseconnection/Admin_Entry_db.dart';
 import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/authonications/screens/login_page.dart';
+import 'package:project/widgets/colors.dart';
 
 class ResetPassWord extends StatelessWidget {
   final String name;
 
   ResetPassWord({super.key, required this.name});
-
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final rePasswordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 1, 33, 90),
+        backgroundColor: primary,
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -47,54 +46,15 @@ class ResetPassWord extends StatelessWidget {
                 const SizedBox(
                   height: 65,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextFormField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 217, 217, 217),
-                      hintText: 'Password',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Password is Empty";
-                      } else if (value.length < 6) {
-                        return "Minimum 6 Characters";
-                      } else {
-                        return null;
-                      }
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
-                ),
+                PasswordTextField(
+                    hintText: 'Password', controller: passwordController),
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextFormField(
-                    controller: rePasswordController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 217, 217, 217),
-                      hintText: 'Re-Password',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Re-Password is Empty";
-                      } else if (value.length < 6) {
-                        return "Minimum 6 Characters";
-                      } else if (value != passwordController.text) {
-                        return "Passwords do not match";
-                      } else {
-                        return null;
-                      }
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
+                PasswordTextField(
+                  hintText: "Re-Password",
+                  controller: rePasswordController,
+                  password: passwordController.text,
                 ),
                 const SizedBox(
                   height: 45,
@@ -108,7 +68,7 @@ class ResetPassWord extends StatelessWidget {
                     backgroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    onResetPasswordButton(context);
+                    _onResetPasswordButton(context);
                   },
                   child: const Text(
                     "Reset Password",
@@ -123,7 +83,7 @@ class ResetPassWord extends StatelessWidget {
     );
   }
 
-  Future<void> onResetPasswordButton(BuildContext context) async {
+  _onResetPasswordButton(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final newPassword = passwordController.text;
       final foundAdmin = await getAdminByName(name);
