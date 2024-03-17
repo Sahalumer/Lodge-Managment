@@ -6,6 +6,7 @@ import 'package:project/authonications/screens/login_page.dart';
 import 'package:project/authonications/widgets/text_field.dart';
 import 'package:project/databaseconnection/Admin_Entry_db.dart';
 import 'package:project/privacy_terms/terms_and_privacy/text.dart';
+import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
 
 class CreateAccount extends StatelessWidget {
@@ -22,7 +23,7 @@ class CreateAccount extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 37, 40, 23),
+        backgroundColor: createAcBG,
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -36,7 +37,7 @@ class CreateAccount extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(17),
                         topRight: Radius.circular(17)),
-                    color: Color.fromARGB(255, 1, 33, 90),
+                    color: primary,
                   ),
                   child: SingleChildScrollView(
                     child: Column(
@@ -47,7 +48,7 @@ class CreateAccount extends StatelessWidget {
                         const Text(
                           'Create Account',
                           style: TextStyle(
-                              color: Colors.white,
+                              color: white,
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
                         ),
@@ -90,7 +91,7 @@ class CreateAccount extends StatelessWidget {
                           children: [
                             const Text(
                               "Already Have An Account? ",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: white),
                             ),
                             const SizedBox(
                               width: 5,
@@ -99,8 +100,7 @@ class CreateAccount extends StatelessWidget {
                               child: const Text(
                                 'Sign_In',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600),
+                                    color: white, fontWeight: FontWeight.w600),
                               ),
                               onTap: () {
                                 Navigator.push(
