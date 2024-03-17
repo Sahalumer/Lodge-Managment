@@ -6,7 +6,6 @@ import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/authonications/screens/create_account.dart';
 import 'package:project/authonications/screens/password.dart';
-import 'package:project/floors/widgets/delete_functions.dart';
 import 'package:project/home/screens/first_sign_in.dart';
 import 'package:project/home/screens/home.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
