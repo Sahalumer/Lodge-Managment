@@ -5,6 +5,7 @@ import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/authonications/screens/login_page.dart';
 import 'package:project/home/screens/home.dart';
 import 'package:project/home/screens/first_sign_in.dart';
+import 'package:project/widgets/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 1, 33, 90),
+        backgroundColor: primary,
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
