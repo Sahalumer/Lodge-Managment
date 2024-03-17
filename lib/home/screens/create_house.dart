@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/home/screens/home.dart';
+import 'package:project/home/widgets/elevated_button_home.dart';
+import 'package:project/home/widgets/textfield_home.dart';
 import 'package:project/model/house_model.dart';
-import 'package:project/widgets/colors.dart';
-import 'package:project/widgets/custom_textfield.dart';
 
 class CreateHouse extends StatefulWidget {
   final String name;
@@ -97,73 +97,30 @@ class _CreateHouseState extends State<CreateHouse> {
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'House Name',
-                                          style: TextStyle(color: white),
-                                        ),
-                                        CustomTextField(
-                                          labelText: "House Name",
-                                          hintText: "Enter The House Name",
-                                          controller: houseNameController,
-                                          keyboardType: TextInputType.name,
-                                        ),
-                                      ],
-                                    )),
+                                TextFieldInHome(
+                                    labelText: 'House Name',
+                                    hintText: "Enter The House Name",
+                                    controller: houseNameController,
+                                    keyboard: TextInputType.name),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Floor Count',
-                                          style: TextStyle(color: white),
-                                        ),
-                                        CustomTextField(
-                                          labelText: "Floor Count",
-                                          hintText: "Enter The Floor Count",
-                                          controller: floorCountController,
-                                          keyboardType: TextInputType.number,
-                                        ),
-                                      ],
-                                    )),
+                                TextFieldInHome(
+                                    labelText: 'Floor Count',
+                                    hintText: "Enter The Floor Count",
+                                    controller: floorCountController,
+                                    keyboard: TextInputType.number),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 for (int i = 0;
                                     i < roomCountControllers.length;
                                     i++)
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10, bottom: 15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Room Count ${i + 1}',
-                                          style: const TextStyle(color: white),
-                                        ),
-                                        CustomTextField(
-                                            labelText: "Room Count ${i + 1}",
-                                            hintText:
-                                                'Rooms Count In Floor ${i + 1}',
-                                            controller: roomCountControllers[i],
-                                            keyboardType: TextInputType.number),
-                                      ],
-                                    ),
-                                  ),
+                                  TextFieldInHome(
+                                      labelText: 'Room Count ${i + 1}',
+                                      hintText: 'Room Counts In Floor ${i + 1}',
+                                      controller: roomCountControllers[i],
+                                      keyboard: TextInputType.number),
                               ],
                             ),
                           ),
@@ -173,25 +130,8 @@ class _CreateHouseState extends State<CreateHouse> {
                             const SizedBox(
                               height: 10,
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                minimumSize: const Size(250, 53),
-                                backgroundColor: Colors.white,
-                              ),
-                              onPressed: () {
-                                onCreateButton(context);
-                              },
-                              child: const Text(
-                                'Create House',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
+                            BuildCreateButton(
+                                onPressed: _onCreateButton(context)),
                             const SizedBox(
                               height: 20,
                             ),
@@ -209,7 +149,7 @@ class _CreateHouseState extends State<CreateHouse> {
     );
   }
 
-  void _updateRoomCountControllers() {
+  _updateRoomCountControllers() {
     int currentRoomCount = int.tryParse(roomCount) ?? 0;
     roomCountControllers = List.generate(
       currentRoomCount,
@@ -217,7 +157,7 @@ class _CreateHouseState extends State<CreateHouse> {
     );
   }
 
-  onCreateButton(BuildContext context) async {
+  _onCreateButton(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       final houseName = houseNameController.text.trim();
       final floorCount = int.parse(floorCountController.text.trim());
