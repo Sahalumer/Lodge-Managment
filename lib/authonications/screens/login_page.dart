@@ -6,29 +6,25 @@ import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/authonications/models/admin_model.dart';
 import 'package:project/authonications/screens/create_account.dart';
 import 'package:project/authonications/screens/password.dart';
+import 'package:project/floors/widgets/delete_functions.dart';
 import 'package:project/home/screens/first_sign_in.dart';
 import 'package:project/home/screens/home.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
 import 'package:project/widgets/custom_textButton.dart';
 import 'package:project/widgets/custom_textfield.dart';
+import 'package:project/widgets/scaffold_msg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key});
-
   final _formKey = GlobalKey<FormState>();
-
   final nameController = TextEditingController();
-
   final passwordController = TextEditingController();
-
   bool ispermission = false;
 
   @override
   Widget build(BuildContext context) {
     getAllAdmins();
-    // getAllHouse();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 1, 33, 90),
@@ -70,7 +66,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   CustomElevatedButton(
                     buttonText: "Sign-In",
-                    onPressed: () => inSignInButton(context),
+                    onPressed: () => _inSignInButton(context),
                   ),
                   const SizedBox(
                     height: 10,
@@ -82,11 +78,11 @@ class LoginPage extends StatelessWidget {
                       children: [
                         CustomTextButton(
                           buttonText: "Create Account",
-                          onPressed: () => creatAccount(context),
+                          onPressed: () => _creatAccount(context),
                         ),
                         CustomTextButton(
                           buttonText: 'Forgot Password?',
-                          onPressed: () => forgotPassword(context),
+                          onPressed: () => _forgotPassword(context),
                         ),
                       ],
                     ),
@@ -100,7 +96,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  inSignInButton(BuildContext context) async {
+  _inSignInButton(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final name = nameController.text.trim();
       final password = passwordController.text.trim();
@@ -131,17 +127,12 @@ class LoginPage extends StatelessWidget {
           );
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Invalid UserName Or Password"),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        showScaffoldMsg(context, 'Invalid Username or PassWord');
       }
     }
   }
 
-  creatAccount(BuildContext context) {
+  _creatAccount(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => CreateAccount(),
@@ -149,7 +140,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  forgotPassword(BuildContext context) {
+  _forgotPassword(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ForgotPassord(),
