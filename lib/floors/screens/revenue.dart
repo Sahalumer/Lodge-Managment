@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
+import 'package:project/floors/functions/function_floor.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/widgets/colors.dart';
+import 'package:project/widgets/list_months.dart';
 
 class SingleHouseRevenue extends StatefulWidget {
   final int houseKey;
@@ -19,25 +21,10 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
   int totalMonthRevenue = 0;
   String selectedMonth = 'January';
 
-  List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-
   @override
   void initState() {
     super.initState();
-    _houseFuture = loadHouse();
+    _houseFuture = _loadHouse();
   }
 
   @override
@@ -59,8 +46,9 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
-              totalRevenue = _calculateTotalRevenue(snapshot.data!);
-              totalMonthRevenue = _calculateMonthRevenue(snapshot.data!);
+              totalRevenue = calculateTotalRevenue(snapshot.data!);
+              totalMonthRevenue =
+                  calculateMonthRevenue(snapshot.data!, selectedMonth);
               return Center(
                 child: Container(
                   height: MediaQuery.of(context).size.height * .28,
@@ -68,9 +56,7 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
                   color: primary,
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      const SizedBox(height: 15),
                       Text(
                         'Total Revenue: $totalRevenue',
                         style: const TextStyle(
@@ -78,7 +64,6 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
                           fontSize: 20,
                         ),
                       ),
-                      const SizedBox(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: DropdownButtonFormField(
@@ -130,31 +115,7 @@ class _SingleHouseRevenueState extends State<SingleHouseRevenue> {
     );
   }
 
-  Future<House> loadHouse() async {
+  Future<House> _loadHouse() async {
     return await getHouseByKeyAsync(widget.houseKey);
-  }
-
-  int _calculateTotalRevenue(House house) {
-    int total = 0;
-    for (var floor in house.roomCount) {
-      for (var room in floor) {
-        for (var person in room.persons) {
-          total += person.countTotal();
-        }
-      }
-    }
-    return total;
-  }
-
-  int _calculateMonthRevenue(House house) {
-    int total = 0;
-    for (var floor in house.roomCount) {
-      for (var room in floor) {
-        for (var person in room.persons) {
-          total += person.countMonth(selectedMonth);
-        }
-      }
-    }
-    return total;
   }
 }

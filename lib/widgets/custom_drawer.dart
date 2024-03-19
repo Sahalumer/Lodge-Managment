@@ -25,8 +25,8 @@ class MyDrawer extends StatelessWidget {
             ),
             child: Image.asset('Assets/Image/LogoImage.png'),
           ),
-          ListTile(title: const Text('Privacy & Policy'), onTap: onPressedOne),
-          ListTile(title: const Text('About'), onTap: onPressedSecond),
+          ListTile(title: Text(textOne), onTap: onPressedOne),
+          ListTile(title: Text(textSecond), onTap: onPressedSecond),
         ],
       ),
     );
