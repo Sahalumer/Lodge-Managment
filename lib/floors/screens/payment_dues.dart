@@ -13,7 +13,7 @@ class PaymentDues extends StatelessWidget {
   List<House>? houses;
   @override
   Widget build(BuildContext context) {
-    assignValue();
+    _assignValue();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -61,7 +61,7 @@ class PaymentDues extends StatelessWidget {
     ));
   }
 
-  assignValue() {
+  _assignValue() {
     if (house != null) {
       getIncompletedPaymentBysingleHouse(house!);
     } else if (houses != null) {
