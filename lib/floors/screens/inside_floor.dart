@@ -105,7 +105,7 @@ class _InsideFloorState extends State<InsideFloor> {
                     visible: bedSpace[gridIndex] != 0,
                     child: Text(
                       '${bedSpace[gridIndex]} bedSpace Available',
-                      style: TextStyle(color: red),
+                      style: const TextStyle(color: red),
                     ),
                   )
                 ],
