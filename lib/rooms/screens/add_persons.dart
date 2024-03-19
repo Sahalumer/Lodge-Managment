@@ -6,8 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/rooms/functions/funaction_rooms.dart';
+import 'package:project/rooms/widgets/button.dart';
+import 'package:project/rooms/widgets/textfield.dart';
 import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_textfield.dart';
+import 'package:project/widgets/list_months.dart';
+import 'package:project/widgets/scaffold_msg.dart';
 
 class AddPerson extends StatefulWidget {
   final int houseKey;
@@ -23,30 +28,18 @@ class AddPerson extends StatefulWidget {
   State<AddPerson> createState() => _AddPersonState();
 }
 
+File? imagePath;
+String? selectedImage;
+final monthControllerPrivate = TextEditingController();
+
 class _AddPersonState extends State<AddPerson> {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
-  final monthController = TextEditingController();
+
   String? selectedMonth;
   bool isPayed = false;
-  File? imagePath;
-  String? selectedImage;
-  List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
 
   late List<bool> isSelected;
 
@@ -107,48 +100,18 @@ class _AddPersonState extends State<AddPerson> {
                               const SizedBox(
                                 height: 30,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Name',
-                                    ),
-                                    CustomTextField(
-                                      labelText: "Name",
-                                      hintText: "Enter The Name",
-                                      controller: nameController,
-                                      keyboardType: TextInputType.name,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Phone Number',
-                                    ),
-                                    CustomTextField(
-                                      labelText: "Phone Number",
-                                      hintText: "Enter The Phone Number",
-                                      controller: phoneController,
-                                      keyboardType: TextInputType.phone,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+                              TextFieldInRoom(
+                                  text: "Name",
+                                  labelText: 'Name',
+                                  hintText: "Enter The Name",
+                                  controller: nameController,
+                                  keyboard: TextInputType.name),
+                              TextFieldInRoom(
+                                  text: 'Phone Number',
+                                  labelText: "Phone Number",
+                                  hintText: "Enter The Phone Number",
+                                  controller: phoneController,
+                                  keyboard: TextInputType.phone),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
@@ -158,13 +121,13 @@ class _AddPersonState extends State<AddPerson> {
                                     const Text('Join Date'),
                                     InkWell(
                                       onTap: () {
-                                        toSelectDate();
+                                        toSelectDate(context);
                                       },
                                       child: IgnorePointer(
                                         child: CustomTextField(
                                           labelText: "Join Month",
                                           hintText: "dd/mm/year",
-                                          controller: monthController,
+                                          controller: monthControllerPrivate,
                                           keyboardType: null,
                                         ),
                                       ),
@@ -185,7 +148,17 @@ class _AddPersonState extends State<AddPerson> {
                                       left: 10, right: 10),
                                   child: ElevatedButton.icon(
                                     onPressed: () {
-                                      selectImageSource();
+                                      selectImageSource(
+                                        context,
+                                        () {
+                                          pickImageFromcamera();
+                                          Navigator.pop(context);
+                                        },
+                                        () {
+                                          pickImageFromGallery();
+                                          Navigator.pop(context);
+                                        },
+                                      );
                                     },
                                     icon: const Icon(Icons.image),
                                     label: const Text('Add Image'),
@@ -195,7 +168,22 @@ class _AddPersonState extends State<AddPerson> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
-                                  child: _buildImagePreview(),
+                                  child: buildImagePreview(
+                                    context,
+                                    () {
+                                      selectImageSource(
+                                        context,
+                                        () {
+                                          pickImageFromcamera();
+                                          Navigator.pop(context);
+                                        },
+                                        () {
+                                          pickImageFromGallery();
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
                               Row(
                                 children: [
@@ -282,59 +270,18 @@ class _AddPersonState extends State<AddPerson> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Amount',
-                                          ),
-                                          CustomTextField(
-                                            labelText: 'Amount',
-                                            hintText: 'Enter the Amount',
-                                            controller: amountController,
-                                            keyboardType: TextInputType.number,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    TextFieldInRoom(
+                                        text: "Amount",
+                                        labelText: "Amount",
+                                        hintText: 'Enter The Amount',
+                                        controller: amountController,
+                                        keyboard: TextInputType.number)
                                   ],
                                 ),
                             ],
                           )),
                         ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                minimumSize: const Size(250, 53),
-                                backgroundColor: primary,
-                              ),
-                              onPressed: () {
-                                onAddButton();
-                              },
-                              child: const Text(
-                                'ADD',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        )
+                        AddButtonInRoom(onPressed: () => _onAddButton())
                       ],
                     ),
                   ),
@@ -369,10 +316,10 @@ class _AddPersonState extends State<AddPerson> {
     });
   }
 
-  void onAddButton() async {
+  _onAddButton() async {
     if (formKey.currentState!.validate()) {
       if (selectedImage == null) {
-        msg(context);
+        showScaffoldMsg(context, 'Please add the Id Proof');
       }
 
       final person = Person(
@@ -381,7 +328,7 @@ class _AddPersonState extends State<AddPerson> {
           imagePath: selectedImage!,
           isPayed: isPayed,
           roomName: widget.roomName,
-          joinDate: monthController.text,
+          joinDate: monthControllerPrivate.text,
           revenue: {
             isPayed ? selectedMonth! : '': int.parse(amountController.text),
           });
@@ -392,90 +339,5 @@ class _AddPersonState extends State<AddPerson> {
       );
       Navigator.pop(context);
     }
-  }
-
-  void msg(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: Text(
-          'Please add the Id Proof',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.red),
-        ),
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.grey,
-      ),
-    );
-  }
-
-  toSelectDate() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    ).then((selectedDate) {
-      if (selectedDate != null) {
-        monthController.text =
-            "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
-      }
-    });
-  }
-
-  Widget _buildImagePreview() {
-    return Column(
-      children: [
-        if (selectedImage != null)
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: FileImage(File(selectedImage!)),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {
-            selectImageSource();
-          },
-          child: const Text('Change Image'),
-        ),
-      ],
-    );
-  }
-
-  Future<void> selectImageSource() async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: SizedBox(
-              height: MediaQuery.of(context).size.height * .12,
-              child: Column(
-                children: [
-                  TextButton.icon(
-                      onPressed: () {
-                        pickImageFromcamera();
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.camera_enhance),
-                      label: const Text("Camera")),
-                  TextButton.icon(
-                      onPressed: () {
-                        pickImageFromGallery();
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.camera),
-                      label: const Text("gallery"))
-                ],
-              )),
-        );
-      },
-    );
   }
 }
