@@ -3,16 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/databaseconnection/person_functions.dart';
+import 'package:project/floors/widgets/textfield_floors.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_textButton.dart';
-import 'package:project/widgets/custom_textfield.dart';
 
 class EditFloorsAndRooms extends StatefulWidget {
   final House house;
-
   const EditFloorsAndRooms({super.key, required this.house});
-
   @override
   State<EditFloorsAndRooms> createState() => _EditFloorsAndRoomsState();
 }
@@ -25,10 +23,10 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
   @override
   void initState() {
     super.initState();
-    assignValue();
+    _assignValue();
     newFloorCountController.addListener(() {
       setState(() {
-        updateRoomCountControllers();
+        _updateRoomCountControllers();
       });
     });
   }
@@ -45,82 +43,70 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: primary,
-        body: Form(
-          key: formKey,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Floor Count',
-                        style: TextStyle(color: white),
-                      ),
-                      const SizedBox(height: 5),
-                      CustomTextField(
-                        labelText: 'Floor Count',
-                        hintText: "Enter The Floor Count",
-                        controller: newFloorCountController,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(height: 10),
-                      for (int i = 0; i < newRoomCountControllers.length; i++)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Room Count in Floor ${i + 1}',
-                              style: const TextStyle(color: white),
-                            ),
-                            const SizedBox(height: 5),
-                            CustomTextField(
-                              labelText: 'Room Count',
-                              hintText: "Enter The Room Count",
-                              controller: newRoomCountControllers[i],
-                              keyboardType: TextInputType.number,
-                            ),
-                            const SizedBox(height: 15),
-                          ],
-                        ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+        child: Scaffold(
+      backgroundColor: primary,
+      body: Form(
+        key: formKey,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldInFloor(
+                      controller: newFloorCountController,
+                      labelText: "Floor Count",
+                      hintText: "Enter The Floor Count",
+                      text: 'Floor Count',
+                    ),
+                    for (int i = 0; i < newRoomCountControllers.length; i++)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomTextButton(
-                              buttonText: 'Back',
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }),
-                          CustomTextButton(
-                            buttonText: "Update",
-                            onPressed: () {
-                              inUpdateButton();
-                            },
-                          )
+                          TextFieldInFloor(
+                            controller: newRoomCountControllers[i],
+                            labelText: 'Room Count',
+                            hintText: "Enter The Room Count",
+                            text: 'Room Count in Floor ${i + 1}',
+                          ),
                         ],
-                      )
-                    ],
-                  ),
+                      ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomTextButton(
+                          buttonText: 'Back',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        CustomTextButton(
+                          buttonText: "Update",
+                          onPressed: () {
+                            _inUpdateButton();
+                          },
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
           ),
         ),
       ),
-    );
+    ));
   }
 
-  void assignValue() {
+  _assignValue() {
     newFloorCountController.text = widget.house.floorCount.toString();
-    updateRoomCountControllers();
+    _updateRoomCountControllers();
     for (int i = 0; i < newRoomCountControllers.length; i++) {
       newRoomCountControllers[i].text = i < widget.house.roomCount.length
           ? widget.house.roomCount[i].length.toString()
@@ -128,7 +114,7 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
     }
   }
 
-  void updateRoomCountControllers() {
+  _updateRoomCountControllers() {
     int currentRoomCount = int.tryParse(newFloorCountController.text) ?? 0;
     setState(() {
       if (currentRoomCount > newRoomCountControllers.length) {
@@ -151,7 +137,7 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
     });
   }
 
-  Future<void> inUpdateButton() async {
+  _inUpdateButton() async {
     if (formKey.currentState!.validate()) {
       final houseName = widget.house.houseName;
       final ownerName = widget.house.ownerName;
@@ -165,24 +151,21 @@ class _EditFloorsAndRoomsState extends State<EditFloorsAndRooms> {
         List<Room> value = [];
         for (int j = 0; j < count; j++) {
           List<Person> persons =
-              await getPersonsByRoomName(widget.house.key, '$i+$j+$houseName');
+              await getPersonsByRoomName(widget.house.key, '$i-$j-$houseName');
           Room temp = Room(
-            roomName: '$i+$j+$houseName',
-            persons: persons.isEmpty ? [] : persons,
-            bedSpaceCount: persons.isEmpty ? 1 : persons.length,
-          );
+              roomName: '$i-$j-$houseName',
+              persons: persons.isEmpty ? [] : persons,
+              bedSpaceCount: persons.isEmpty ? 1 : persons.length);
           value.add(temp);
         }
         rooms.add(value);
       }
       final updatedHouse = House(
-        houseName: houseName,
-        floorCount: int.parse(floorCount),
-        roomCount: rooms,
-        ownerName: ownerName,
-      );
+          houseName: houseName,
+          floorCount: int.parse(floorCount),
+          roomCount: rooms,
+          ownerName: ownerName);
       await updateHouseAsync(widget.house.key, updatedHouse);
-
       Navigator.pop(context, updatedHouse);
     }
   }

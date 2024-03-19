@@ -1,9 +1,11 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:project/widgets/colors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   IconData? iconData;
-  VoidCallback onPressed;
+  final VoidCallback onPressed;
   final String title;
   MyAppBar(
       {super.key, this.iconData, required this.onPressed, required this.title});
