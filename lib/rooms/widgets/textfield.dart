@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_textfield.dart';
 
 class TextFieldInRoom extends StatelessWidget {
@@ -40,6 +41,32 @@ class TextFieldInRoom extends StatelessWidget {
           height: 15,
         ),
       ],
+    );
+  }
+}
+
+class TextFormFieldInRoom extends StatelessWidget {
+  final TextEditingController controller;
+  const TextFormFieldInRoom({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        filled: true,
+        fillColor: secondary,
+        hintText: "Enter the Amount",
+        labelStyle: TextStyle(color: Colors.black),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the amount';
+        }
+        return null;
+      },
     );
   }
 }

@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/rooms/widgets/textfield.dart';
 import 'package:project/widgets/colors.dart';
 import 'package:project/widgets/custom_textButton.dart';
+import 'package:project/widgets/list_months.dart';
 
 updatePayment(
     BuildContext context, Person data, int houseKey, String roomName) {
@@ -14,20 +16,6 @@ updatePayment(
 
   bool ispayed = true;
   amountController.text = '0';
-  List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
 
   showDialog(
     context: context,
@@ -77,23 +65,7 @@ updatePayment(
                   style: TextStyle(color: white, fontSize: 18),
                 ),
                 const SizedBox(height: 2),
-                TextFormField(
-                  controller: amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 217, 217, 217),
-                    hintText: "Enter the Amount",
-                    labelStyle: TextStyle(color: Colors.black),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the amount';
-                    }
-                    return null;
-                  },
-                ),
+                TextFormFieldInRoom(controller: amountController)
               ],
             ),
           ),
