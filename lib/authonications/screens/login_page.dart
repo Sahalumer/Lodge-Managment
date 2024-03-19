@@ -9,7 +9,7 @@ import 'package:project/authonications/screens/password.dart';
 import 'package:project/home/screens/first_sign_in.dart';
 import 'package:project/home/screens/home.dart';
 import 'package:project/widgets/custom_elavatedbutton.dart';
-import 'package:project/widgets/custom_textButton.dart';
+import 'package:project/widgets/custom_textbutton.dart';
 import 'package:project/widgets/custom_textfield.dart';
 import 'package:project/widgets/scaffold_msg.dart';
 import 'package:shared_preferences/shared_preferences.dart';

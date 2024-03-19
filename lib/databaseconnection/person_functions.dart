@@ -39,7 +39,6 @@ Future<void> addPersonInRoomAsync(
     }
   } finally {
     closeHouseBox(houseBox);
-    print('Added Person succesfully');
   }
 }
 
@@ -68,7 +67,6 @@ Future<void> updatePersonInRoomAsync(
     }
   } finally {
     closeHouseBox(houseBox);
-    print('Updated Person Succesfully');
   }
 }
 
@@ -99,7 +97,6 @@ Future<Person?> getPersonByName(
     return null;
   } finally {
     closeHouseBox(houseBox);
-    print('Got the person successfully');
   }
 }
 
@@ -126,7 +123,6 @@ Future<void> deletePersonAsync(
     }
   } finally {
     closeHouseBox(houseBox);
-    print('deleted person succesfully');
   }
 }
 

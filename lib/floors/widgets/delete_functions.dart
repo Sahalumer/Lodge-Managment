@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/home/screens/home.dart';

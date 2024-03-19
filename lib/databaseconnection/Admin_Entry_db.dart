@@ -27,7 +27,7 @@ void updateAdmin(int id, AdminEntry admin) async {
     final adminBox = await Hive.openBox<AdminEntry>(adminBoxName);
     adminBox.put(id, admin);
   } else {
-    final adminBox = await Hive.box<AdminEntry>(adminBoxName);
+    final adminBox = Hive.box<AdminEntry>(adminBoxName);
     adminBox.put(id, admin);
   }
   getAllAdmins();
@@ -72,10 +72,8 @@ Future<AdminEntry?> getAdminByEmail(String email) async {
   final adminEntry = adminBox.values.firstWhere(
     (entry) {
       if (entry.email == email) {
-        print('Found admin by email');
         return true;
       } else {
-        print('not found');
         return false;
       }
     },
@@ -83,7 +81,4 @@ Future<AdminEntry?> getAdminByEmail(String email) async {
   );
 
   return adminEntry;
-  // }
-
-  // return null;
 }

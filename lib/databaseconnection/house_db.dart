@@ -36,7 +36,7 @@ Future<List<House>> getAllHousesByOwnerAsync(String ownerName) async {
     houseList.value.addAll(
       houseBox.values.where((house) => house.ownerName == ownerName),
     );
-    print('i found ${houseList.value.length} houses By Owner');
+
     return houseList.value;
   } finally {
     closeHouseBox(houseBox);
@@ -95,7 +95,6 @@ Future<void> updateRoomBedSpaceCountAsync(
     if (rooms != null && house != null) {
       rooms.bedSpaceCount = newBedSpaceCount;
       await houseBox.put(houseKey, house);
-      print('bedSpace Count Updated successfully');
     }
   } finally {
     if (houseBox.isOpen) {
@@ -139,8 +138,6 @@ Future<House?> getHouseByRoomName(String roomName) async {
         }
       }
     }
-  } catch (e) {
-    print('error on getHouseByRoomName $e');
   } finally {
     closeHouseBox(houseBox);
   }

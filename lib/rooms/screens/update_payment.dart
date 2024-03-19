@@ -5,7 +5,7 @@ import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/rooms/widgets/textfield.dart';
 import 'package:project/widgets/colors.dart';
-import 'package:project/widgets/custom_textButton.dart';
+import 'package:project/widgets/custom_textbutton.dart';
 import 'package:project/widgets/list_months.dart';
 
 updatePayment(

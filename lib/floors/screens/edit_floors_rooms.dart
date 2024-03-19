@@ -6,7 +6,7 @@ import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/floors/widgets/textfield_floors.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/widgets/colors.dart';
-import 'package:project/widgets/custom_textButton.dart';
+import 'package:project/widgets/custom_textbutton.dart';
 
 class EditFloorsAndRooms extends StatefulWidget {
   final House house;
