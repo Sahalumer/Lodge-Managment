@@ -3,9 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/person_functions.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/rooms/functions/funaction_rooms.dart';
 import 'package:project/rooms/screens/see_details.dart';
 import 'package:project/rooms/screens/update_payment.dart';
+import 'package:project/rooms/widgets/elevated_button.dart';
+import 'package:project/rooms/widgets/show_in_row.dart';
 import 'package:project/widgets/colors.dart';
+import 'package:project/widgets/my_appbar.dart';
+import 'package:project/widgets/scaffold_msg.dart';
 
 class PersonDetails extends StatefulWidget {
   final int houseKey;
@@ -40,26 +45,21 @@ class _PersonDetailsState extends State<PersonDetails> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: primary,
-          centerTitle: true,
-          foregroundColor: white,
-          toolbarHeight: 65,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new),
-          ),
-          title: const Text('Client'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                delete(context);
+        appBar: MyAppBar(
+          onPressed: () {
+            deleteFuncInRoom(
+              context,
+              () async {
+                await deletePersonAsync(
+                    widget.houseKey, widget.roomName, widget.index);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                showScaffoldMsg(context, "Deleted Succussfully");
               },
-              icon: const Icon(Icons.delete),
-            )
-          ],
+            );
+          },
+          title: "Client",
+          iconData: Icons.delete,
         ),
         body: FutureBuilder<Person?>(
           future: _personFuture,
@@ -90,51 +90,16 @@ class _PersonDetailsState extends State<PersonDetails> {
                                 AssetImage('Assets/Image/users.png'),
                           ),
                           const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Name : ',
-                                style: TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                person.name,
-                                style: const TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
+                          ShowInRowInRoom(
+                            label: "Name : ",
+                            value: person.name,
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Phone Number : ',
-                                style: TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                person.phoneNumber.toString(),
-                                style: const TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ShowInRowInRoom(
+                              label: "Phone Number : ",
+                              value: person.phoneNumber.toString()),
                           const SizedBox(height: 15),
-                          ElevatedButton(
+                          ElevatedButtonInRoom(
                             onPressed: () {
                               updatePayment(
                                 context,
@@ -143,14 +108,6 @@ class _PersonDetailsState extends State<PersonDetails> {
                                 widget.roomName,
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              minimumSize: const Size(210, 43),
-                              backgroundColor: Colors.white,
-                            ),
-                            child: const Text('Payment'),
                           ),
                           const SizedBox(height: 5.1),
                           InkWell(
@@ -193,55 +150,6 @@ class _PersonDetailsState extends State<PersonDetails> {
             }
           },
         ),
-      ),
-    );
-  }
-
-  delete(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text(
-            'Are You Confirm To Delete?',
-            textAlign: TextAlign.center,
-          ),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel')),
-            TextButton(
-              onPressed: () async {
-                await deletePersonAsync(
-                    widget.houseKey, widget.roomName, widget.index);
-                Navigator.pop(context);
-                Navigator.pop(context);
-                msg(context);
-              },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void msg(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: Text(
-          "Deletd succusfully",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
-        ),
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.grey,
       ),
     );
   }

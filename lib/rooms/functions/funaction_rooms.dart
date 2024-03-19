@@ -88,3 +88,31 @@ showDiologueInRoom(BuildContext context, VoidCallback onPressed,
     ),
   );
 }
+
+deleteFuncInRoom(BuildContext context, VoidCallback onPressed) {
+  showDialog(
+    context: context,
+    builder: (ctx) {
+      return AlertDialog(
+        title: const Text(
+          'Are You Confirm To Delete?',
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel')),
+          TextButton(
+            onPressed: onPressed,
+            child: const Text(
+              'Delete',
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
