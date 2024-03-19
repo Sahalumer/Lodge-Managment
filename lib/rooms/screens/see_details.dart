@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/rooms/widgets/elevated_button.dart';
+import 'package:project/rooms/widgets/show_in_row.dart';
 import 'package:project/widgets/colors.dart';
 
 class SeeDetails extends StatelessWidget {
@@ -40,66 +42,20 @@ class SeeDetails extends StatelessWidget {
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Name : ',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      person.name,
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ShowInRowInDetails(
+                                    label: "Name : ", value: person.name),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Contact : ',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      person.phoneNumber.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ShowInRowInDetails(
+                                    label: "Contact : ",
+                                    value: person.phoneNumber.toString()),
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Join Date : ',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      person.joinDate,
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ShowInRowInDetails(
+                                    label: "Join Date : ",
+                                    value: person.joinDate),
                                 const SizedBox(
                                   height: 15,
                                 ),
@@ -125,31 +81,13 @@ class SeeDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Column(
+                      const Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 10,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              minimumSize: const Size(250, 53),
-                              backgroundColor: primary,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Done',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
+                          ElevattedButtonInDetails(),
+                          SizedBox(
                             height: 20,
                           ),
                         ],
