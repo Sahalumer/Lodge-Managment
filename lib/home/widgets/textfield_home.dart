@@ -16,23 +16,30 @@ class TextFieldInHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            labelText,
-            style: const TextStyle(color: white),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                labelText,
+                style: const TextStyle(color: white),
+              ),
+              CustomTextField(
+                labelText: labelText,
+                hintText: hintText,
+                controller: controller,
+                keyboardType: keyboard,
+              ),
+            ],
           ),
-          CustomTextField(
-            labelText: labelText,
-            hintText: hintText,
-            controller: controller,
-            keyboardType: keyboard,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 15,
+        )
+      ],
     );
   }
 }

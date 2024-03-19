@@ -6,11 +6,11 @@ import 'package:project/home/screens/home.dart';
 import 'package:project/home/widgets/elevated_button_home.dart';
 import 'package:project/home/widgets/textfield_home.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/widgets/colors.dart';
 
 class CreateHouse extends StatefulWidget {
   final String name;
   const CreateHouse({Key? key, required this.name});
-
   @override
   State<CreateHouse> createState() => _CreateHouseState();
 }
@@ -48,105 +48,85 @@ class _CreateHouseState extends State<CreateHouse> {
     });
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 217, 217, 217),
-        body: SingleChildScrollView(
+        child: Scaffold(
+      backgroundColor: secondary,
+      body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 25,
+          ),
+          Row(
             children: [
               const SizedBox(
-                height: 25,
+                width: 90,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 90,
-                  ),
-                  Image.asset('Assets/Image/createhose.png'),
-                ],
-              ),
-              Form(
-                key: formKey,
-                child: SingleChildScrollView(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * .665,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(17),
-                          topRight: Radius.circular(17)),
-                      color: Color.fromARGB(255, 1, 33, 90),
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Create House',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                TextFieldInHome(
-                                    labelText: 'House Name',
-                                    hintText: "Enter The House Name",
-                                    controller: houseNameController,
-                                    keyboard: TextInputType.name),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                TextFieldInHome(
-                                    labelText: 'Floor Count',
-                                    hintText: "Enter The Floor Count",
-                                    controller: floorCountController,
-                                    keyboard: TextInputType.number),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                for (int i = 0;
-                                    i < roomCountControllers.length;
-                                    i++)
-                                  TextFieldInHome(
-                                      labelText: 'Room Count ${i + 1}',
-                                      hintText: 'Room Counts In Floor ${i + 1}',
-                                      controller: roomCountControllers[i],
-                                      keyboard: TextInputType.number),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            BuildCreateButton(
-                                onPressed: _onCreateButton(context)),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              Image.asset('Assets/Image/createhose.png'),
             ],
           ),
-        ),
-      ),
-    );
+          Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                  child: Container(
+                      height: MediaQuery.of(context).size.height * .665,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(17),
+                              topRight: Radius.circular(17)),
+                          color: primary),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                    'Create House',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  TextFieldInHome(
+                                      labelText: 'House Name',
+                                      hintText: "Enter The House Name",
+                                      controller: houseNameController,
+                                      keyboard: TextInputType.name),
+                                  TextFieldInHome(
+                                      labelText: 'Floor Count',
+                                      hintText: "Enter The Floor Count",
+                                      controller: floorCountController,
+                                      keyboard: TextInputType.number),
+                                  for (int i = 0;
+                                      i < roomCountControllers.length;
+                                      i++)
+                                    TextFieldInHome(
+                                        labelText: 'Room Count ${i + 1}',
+                                        hintText:
+                                            'Room Counts In Floor ${i + 1}',
+                                        controller: roomCountControllers[i],
+                                        keyboard: TextInputType.number),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              BuildCreateButton(
+                                  onPressed: () => _onCreateButton(context)),
+                              const SizedBox(height: 20)
+                            ],
+                          )
+                        ],
+                      ))))
+        ],
+      )),
+    ));
   }
 
   _updateRoomCountControllers() {
