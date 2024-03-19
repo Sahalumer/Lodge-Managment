@@ -2,13 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
+import 'package:project/home/widgets/card.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/authonications/screens/login_page.dart';
 import 'package:project/home/screens/create_house.dart';
 import 'package:project/floors/screens/inside_house.dart';
-import 'package:project/privacy_terms/terms_and_privacy/about.dart';
 import 'package:project/privacy_terms/terms_and_privacy/privacy.dart';
-import 'package:project/widgets/colors.dart';
+import 'package:project/widgets/custom_drawer.dart';
+import 'package:project/widgets/my_appBar.dart';
+import 'package:project/widgets/scaffold_msg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,51 +22,30 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: primary,
-          centerTitle: true,
-          foregroundColor: white,
-          toolbarHeight: 65,
-          title: const Text('Houses'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                inLogedOutButton(context);
-              },
-              icon: const Icon(Icons.logout_outlined),
-            )
-          ],
+        appBar: MyAppBar(
+          title: "Houses",
+          onPressed: () {
+            _inLogedOutButton(context);
+          },
+          iconData: Icons.logout_outlined,
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: primary,
-                ),
-                child: Image.asset('Assets/Image/LogoImage.png'),
-              ),
-              ListTile(
-                title: const Text('Privacy & Policy'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (ctx) =>
-                              Privacy(mdFileName: 'privacy_policy.md')));
-                },
-              ),
-              ListTile(
-                title: const Text('About'),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (ctx) => AboutScreen()));
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: MyDrawer(
+            onPressedOne: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) =>
+                          Privacy(mdFileName: 'privacy_policy.md')));
+            },
+            onPressedSecond: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) =>
+                          Privacy(mdFileName: 'privacy_policy.md')));
+            },
+            textOne: 'Privacy & Policy',
+            textSecond: 'About'),
         body: ValueListenableBuilder(
           valueListenable: houseList,
           builder:
@@ -80,10 +61,8 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               if (index != listHouse.length) {
                 final data = listHouse[index];
-                return Card(
-                  elevation: 5,
-                  child: InkWell(
-                    onTap: () async {
+                return CardHome(
+                    onPressed: () async {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -93,41 +72,16 @@ class HomePage extends StatelessWidget {
                                     ownerName: data.ownerName,
                                   )));
                     },
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Icon(
-                            Icons.home,
-                            size: 80,
-                          ),
-                        ),
-                        Text(data.houseName)
-                      ],
-                    ),
-                  ),
-                );
+                    name: data.houseName);
               } else {
-                return Card(
-                  elevation: 5,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (ctx) => CreateHouse(name: ownerName),
-                        ),
-                      );
-                    },
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 90,
-                        weight: 10,
-                      ),
+                return CardHome(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => CreateHouse(name: ownerName),
                     ),
-                  ),
-                );
+                  );
+                });
               }
             },
           ),
@@ -136,7 +90,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  inLogedOutButton(BuildContext context) {
+  _inLogedOutButton(BuildContext context) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -158,24 +112,9 @@ class HomePage extends StatelessWidget {
                       builder: (ctx) => LoginPage(),
                     ),
                     (route) => false);
-                msg(context);
+                showScaffoldMsg(context, "Logouted From Your Account");
               })
         ],
-      ),
-    );
-  }
-
-  void msg(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: Text(
-          "Logouted From Your Account",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
-        ),
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.grey,
       ),
     );
   }
