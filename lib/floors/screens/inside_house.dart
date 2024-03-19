@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/floors/widgets/card.dart';
 import 'package:project/floors/widgets/delete_functions.dart';
-import 'package:project/widgets/colors.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
 import 'package:project/floors/screens/edit_floors_rooms.dart';
