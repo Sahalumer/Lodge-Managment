@@ -65,3 +65,26 @@ toSelectDate(BuildContext context) {
     }
   });
 }
+
+showDiologueInRoom(BuildContext context, VoidCallback onPressed,
+    TextEditingController controller) {
+  showDialog(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: const Text("Enter Bed Space Count"),
+      content: TextFormField(
+        controller: controller,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          hintText: "Enter bed space count",
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: onPressed,
+          child: const Text("Submit"),
+        ),
+      ],
+    ),
+  );
+}

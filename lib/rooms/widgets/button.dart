@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/widgets/colors.dart';
+import 'package:project/widgets/custom_elavatedbutton.dart';
 
 class AddButtonInRoom extends StatelessWidget {
   final VoidCallback onPressed;
@@ -33,6 +34,23 @@ class AddButtonInRoom extends StatelessWidget {
           height: 20,
         ),
       ],
+    );
+  }
+}
+
+class DoneButtonInRoom extends StatelessWidget {
+  const DoneButtonInRoom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 180,
+      child: CustomElevatedButton(
+        buttonText: 'DONE',
+        onPressed: () => Navigator.pop(
+          context,
+        ),
+      ),
     );
   }
 }

@@ -3,15 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:project/databaseconnection/house_db.dart';
 import 'package:project/model/house_model.dart';
+import 'package:project/rooms/functions/funaction_rooms.dart';
 import 'package:project/rooms/screens/add_persons.dart';
 import 'package:project/rooms/screens/person_details.dart';
+import 'package:project/rooms/widgets/button.dart';
+import 'package:project/rooms/widgets/itembuilder.dart';
 import 'package:project/widgets/colors.dart';
-import 'package:project/widgets/custom_elavatedbutton.dart';
 
 class InsideRoom extends StatefulWidget {
   final House house;
   final String roomName;
-
   const InsideRoom({super.key, required this.house, required this.roomName});
 
   @override
@@ -20,7 +21,6 @@ class InsideRoom extends StatefulWidget {
 
 class _InsideRoomState extends State<InsideRoom> {
   final bedSpaceCountroller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -76,35 +76,13 @@ class _InsideRoomState extends State<InsideRoom> {
                                     setState(() {});
                                   });
                                 },
-                                child: Container(
-                                  color: white,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(height: 5),
-                                        Image.asset(
-                                          'Assets/Image/users.png',
-                                          height: 100,
-                                        ),
-                                        Text(
-                                          room.persons[index].name,
-                                          style: TextStyle(
-                                              color: room.persons[index].isPayed
-                                                  ? Colors.black
-                                                  : Colors.red),
-                                        ),
-                                        Text(
-                                          room.persons[index].phoneNumber
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: room.persons[index].isPayed
-                                                  ? Colors.black
-                                                  : Colors.red),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                child: ItemBuilderInRoom(
+                                    name: room.persons[index].name,
+                                    color: room.persons[index].isPayed
+                                        ? Colors.black
+                                        : Colors.red,
+                                    phoneNumber: room.persons[index].phoneNumber
+                                        .toString()),
                               );
                             } else {
                               return InkWell(
@@ -136,32 +114,13 @@ class _InsideRoomState extends State<InsideRoom> {
                     ),
                     InkWell(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
-                            title: const Text("Enter Bed Space Count"),
-                            content: TextFormField(
-                              controller: bedSpaceCountroller,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                hintText: "Enter bed space count",
-                              ),
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  final count =
-                                      int.parse(bedSpaceCountroller.text);
-                                  await updateRoomBedSpaceCountAsync(
-                                      widget.house.key, widget.roomName, count);
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                },
-                                child: const Text("Submit"),
-                              ),
-                            ],
-                          ),
-                        );
+                        showDiologueInRoom(context, () async {
+                          final count = int.parse(bedSpaceCountroller.text);
+                          await updateRoomBedSpaceCountAsync(
+                              widget.house.key, widget.roomName, count);
+                          Navigator.pop(context);
+                          setState(() {});
+                        }, bedSpaceCountroller);
                       },
                       child: const Text(
                         "How much bed space?",
@@ -172,18 +131,8 @@ class _InsideRoomState extends State<InsideRoom> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    SizedBox(
-                      width: 180,
-                      child: CustomElevatedButton(
-                        buttonText: 'DONE',
-                        onPressed: () => Navigator.pop(
-                          context,
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 15),
+                    const DoneButtonInRoom()
                   ],
                 ),
               );
